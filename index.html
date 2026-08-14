@@ -202,8 +202,9 @@ svg{display:block;}
    COMPONENTS
    ============================================================ */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow-sm);}
-.card + .card{margin-top:16px;}
-.section-title{font-size:16px;font-weight:500;margin-bottom:12px;letter-spacing:-.005em;}
+.card + .card{margin-top:24px;}
+.card p + p{margin-top:10px;}
+.section-title{font-size:18px;font-weight:600;margin-bottom:14px;letter-spacing:-.005em;}
 .section-block{margin-bottom:28px;}
 .muted{color:var(--ink-2);}
 .small{font-size:12.5px;}
@@ -256,10 +257,12 @@ td.center,th.center{text-align:center;}
 .btn .ic{width:13px;height:13px;}
 .copy-btn.copied .ic{width:13px;height:13px;}
 
-.chip-select{display:flex;flex-wrap:wrap;gap:8px;}
-.chip-opt{border:1px solid var(--border);border-radius:0;padding:14px 16px;background:var(--surface);text-align:left;flex:1 1 210px;min-width:180px;transition:border-color .15s ease;}
-.chip-opt:hover{border-color:#000;}
-.chip-opt.selected{border-color:#000;background:var(--accent-soft);box-shadow:inset 0 0 0 1px #000;}
+.chip-select{display:flex;flex-direction:column;border-top:1px solid var(--border);}
+.chip-opt{display:block;border:0;border-bottom:1px solid var(--border);border-radius:0;padding:12px 4px 12px 16px;background:var(--surface);text-align:left;width:100%;position:relative;transition:background-color .15s ease;}
+.chip-opt::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:transparent;transition:background-color .15s ease;}
+.chip-opt:hover{background:var(--surface-alt);}
+.chip-opt.selected{background:var(--accent-soft);}
+.chip-opt.selected::before{background:#000;}
 .chip-opt .co-title{font-weight:500;font-size:13.5px;margin-bottom:2px;}
 .chip-opt .co-sub{font-size:12px;color:var(--ink-2);}
 
@@ -272,7 +275,7 @@ td.center,th.center{text-align:center;}
 .accordion-item.open .accordion-head .chev{transform:rotate(90deg);}
 .accordion-body{padding:0 4px 18px;font-size:13.75px;color:var(--ink-2);display:none;}
 .accordion-item.open .accordion-body{display:block;}
-.accordion-body p + p{margin-top:8px;}
+.accordion-body > * + *{margin-top:12px;}
 
 .template-card{border:1px solid var(--border);border-radius:0;background:var(--surface);margin-bottom:18px;overflow:hidden;}
 .template-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;background:var(--surface-alt);border-bottom:.3px solid #000;}
@@ -328,7 +331,7 @@ td.center,th.center{text-align:center;}
 .timeline{display:flex;align-items:flex-start;gap:0;margin:26px 0 10px;overflow-x:auto;padding-bottom:8px;}
 .tl-phase{flex:1 1 0;min-width:150px;position:relative;padding:0 10px;text-align:left;background:none;border:0;}
 .tl-phase .tl-dot{width:8px;height:8px;border-radius:50%;background:var(--surface);border:1.5px solid #000;margin-bottom:12px;position:relative;z-index:2;}
-.tl-phase .tl-line{position:absolute;top:3px;left:-50%;right:50%;height:.6px;background:#000;z-index:1;}
+.tl-phase .tl-line{position:absolute;top:3px;left:calc(-100% + 14px);right:calc(100% - 14px);height:.6px;background:#000;z-index:1;}
 .tl-phase:first-child .tl-line{display:none;}
 .tl-phase .tl-name{font-weight:400;font-size:12px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px;}
 .tl-phase .tl-marks{font-size:11px;color:var(--ink-3);}
@@ -436,10 +439,6 @@ td.center,th.center{text-align:center;}
       <div class="pillselect">
         <select id="roleSelect" aria-label="Role"></select>
       </div>
-      <div class="langtoggle" id="langToggle">
-        <button data-lang="en" id="btnLangEN">EN</button>
-        <button data-lang="zh" id="btnLangZH">中文</button>
-      </div>
     </div>
   </header>
 
@@ -463,7 +462,6 @@ ui:{
   brandT2:"Simpson Marine — internal",
   skipLink:"Skip to content",
   roleAllLabel:"All roles",
-  printBtn:"Print / PDF",
   nav:{
     groupTools:"Tools", groupReference:"Reference",
     home:"Introduction", wizard:"Document checklist wizard", calculator:"25% / 50% threshold calculator", roleTimeline:"Role view & timeline",
@@ -507,29 +505,29 @@ home:{
   footNote:"Issued by Simpson Marine under the Sanlorenzo S.p.A. Sanctions Compliance Program. Questions on the application of these guidelines go to the KYC Compliance Officer."
 },
 faq:{
-  title:"FAQ", eyebrow:"Section 12 · Reference",
+  title:"FAQ", eyebrow:"Reference",
   subtitle:"Searchable answers to the questions that come up most often.",
   items:[
     {q:"Why do we do KYC? How do I explain it to the buyer?",
      a:`Sanlorenzo, as a listed company, has adopted a Sanctions Compliance Program which sets out, among other things, the procedures to be followed for customer due diligence, identity verification and sanctions screening. These commitments apply, under the SCP itself, to all companies within the Sanlorenzo group, including wholly owned subsidiaries such as Simpson Marine. The accurate collection of customer information, and in particular the identification of the ultimate beneficial owner(s) and other persons involved in ownership, control, benefit or use of the vessel, is an essential part of this compliance process, whose purpose is to protect Sanlorenzo from exposure to international sanctions risk. All documents provided are treated as strictly private and confidential and used solely for KYC, sanctions compliance and transaction-related verification purposes.`},
-    {q:"What counts as proof of residence?",
-     a:`See Section 7. Recent — maximum three months — issued by a third party, never self-declared.`},
+    {q:"What counts as proof of residence?", id:"proofOfResidence",
+     a:`Recent — maximum three months — issued by a third party, never self-declared.`},
     {q:"The client signed as an individual but wants the boat registered to a company. What now?",
-     a:`That company must go through full KYC before we consent to the assignment. Clause 12.1 requires our written consent for any assignment, and consent is not given until the new party's file is complete.`},
+     a:`That company must go through full KYC before we consent to the assignment. Clause 12.1 of the Standard Terms and Conditions of Sale requires our written consent for any assignment, and consent is not given until the new party's file is complete.`},
     {q:"The client's shareholding changed after we signed. Does it matter?",
-     a:`Yes. Clause 14.2 obliges the client to inform us of any change of beneficial owner. Reopen the file and re-screen.`},
+     a:`Yes. Clause 14.2 of the Standard Terms and Conditions of Sale obliges the client to inform us of any change of beneficial owner. Reopen the file and re-screen.`},
     {q:"The boat is a trade-in that we are reselling. Do we need KYC again?",
      a:`Yes — two files. One on the party who sold the boat to us, one on the party buying it from us. Every time a vessel passes through our ownership, both sides are verified.`},
     {q:"We are selling to a Brand Representative. Full KYC?",
      a:`Simplified. The Brand Representative passed KYC at appointment; keep that confirmation on file. If the last screening is more than 6 months old, re-verify the documents and run the screening again. The register tells you when it was last done.`},
     {q:"Screening came back with a partial name match. What do I do?",
-     a:`Nothing on your own. Follow the reading steps in Section 9, and if doubt remains, escalate under Track A. Never contact the client about it.`},
+     a:`Nothing on your own. Follow the reading steps under Screening, and if doubt remains, escalate under Track A. Never contact the client about it.`},
     {q:"The client refuses to provide a document.",
      a:`Do not negotiate it yourself and do not let it drift to Day 15. Escalate to the KYC Compliance Officer, who will decide the way forward.`}
   ]
 },
 kycRequired:{
-  title:"When KYC is required", eyebrow:"Section 2 · Reference", question:"When is KYC required?",
+  title:"When KYC is required", eyebrow:"Reference", question:"When is KYC required?",
   subtitle:"Filter by situation to see whether a full KYC file is required.",
   alwaysTitle:"Always required",
   alwaysRows:[
@@ -544,7 +542,7 @@ kycRequired:{
   note:{type:"warn", html:`Note: even in pure brokerage, if any doubt arises about a counterparty — a name that seems familiar from the news, an opaque structure, an unusual payment route — raise it with the KYC Compliance Officer. Assisting a sanctioned party is itself prohibited, whether or not we take title.`}
 },
 raci:{
-  title:"Who does what", eyebrow:"Section 3 · Reference",
+  title:"Who does what", eyebrow:"Guide",
   subtitle:"The RACI matrix for the KYC process. Select a role above to filter.",
   roleOrder:["broker","backoffice","finance","compliance","cso"],
   officerNote:`KYC Compliance Officer — the internal escalation point between the commercial teams and the Sanlorenzo SCP Unit. Every case that is not straightforward stops here before it goes anywhere else.`,
@@ -566,7 +564,7 @@ raci:{
   cellLabel:{does:"Does", triggers:"Triggers", consulted:"Consulted", flags:"Flags", receives:"Receives", decides:"Decides", informed:"Informed"}
 },
 phases:{
-  title:"The process, phase by phase", eyebrow:"Section 4 · Reference",
+  title:"The process, phase by phase", eyebrow:"Guide",
   subtitle:"Five phases, a 15-day clock from signature, and monitoring that continues until handover.",
   list:[
     {id:"phase0", name:"Phase 0", label:"Preliminary screening", timing:"Before signature",
@@ -583,9 +581,9 @@ phases:{
      <div class="callout">"Please make all payments from the account of the entity that has signed this contract. If funds arrive from anyone else, we are required to run a separate verification, and that could delay your boat."</div>
      <div class="role-block" data-role="backoffice"><span class="badge role-backoffice">Back office</span> opens the file on Box.</div>`},
     {id:"phase2", name:"Phase 2", label:"Document collection", timing:"Days 0–15",
-     html:`<div class="role-block" data-role="broker"><span class="badge role-broker">Broker</span> sends the document request using the standard template in Section 11.</div>
+     html:`<div class="role-block" data-role="broker"><span class="badge role-broker">Broker</span> sends the document request using the standard template in the Broker toolkit.</div>
      <div class="role-block" data-role="backoffice"><span class="badge role-backoffice">Back office</span>:</div>
-     <ol><li>tries the <strong>public registry first</strong> (Section 6) and asks the client only for what the registry does not provide</li>
+     <ol><li>tries the <strong>public registry first</strong> (see Registries by jurisdiction) and asks the client only for what the registry does not provide</li>
      <li>checks that every document received is complete, legible and within validity</li>
      <li>completes <strong>Annex 2</strong> of the SCP — the OFAC Identification and Risk Assessment Form</li>
      <li>re-runs the screening on <strong>every name that emerged from the documents</strong>, not only the ones declared in Phase 0: actual beneficial owners, legal representative, registered owner</li></ol>
@@ -596,14 +594,14 @@ phases:{
      <p>The file is now <strong>closed, but not frozen.</strong></p>`},
     {id:"phase4", name:"Phase 4", label:"Ongoing monitoring", timing:"Until handover",
      html:`<p>Three live controls run from sign-off to handover:</p>
-     <div class="role-block" data-role="finance"><span class="badge role-finance">Finance</span> checks every payment against the authorised payer (Section 8)</div>
+     <div class="role-block" data-role="finance"><span class="badge role-finance">Finance</span> checks every payment against the authorised payer (see Payments)</div>
      <p><strong>Re-screening</strong> is mandatory if the last screening is more than <strong>6 months old</strong> at the time the shipping request goes to Italy. Documents are already on file — this is only a re-run of the names through the two portals.</p>
-     <p><strong>Any change of beneficial owner, or any assignment of the contract</strong>, reopens the file. Clause 14.2 obliges the client to inform us of a change of beneficial owner; clause 12.1 gives us the right to refuse consent to an assignment, and we use it.</p>`,
+     <p><strong>Any change of beneficial owner, or any assignment of the contract</strong>, reopens the file. Clause 14.2 of the Standard Terms and Conditions of Sale obliges the client to inform us of a change of beneficial owner; clause 12.1 of the same terms gives us the right to refuse consent to an assignment, and we use it.</p>`,
      callout:{type:"danger", html:"No complete KYC file → no shipping request to Italy → no handover."}}
   ]
 },
 thresholds:{
-  title:"Identifying the Ultimate Beneficial Owner (UBO)", eyebrow:"Section 5 · Reference",
+  title:"Identifying the Ultimate Beneficial Owner (UBO)", eyebrow:"Reference",
   subtitle:"Two thresholds, two different purposes. Do not confuse them.",
   t25:{ title:"25% — the identification threshold", body:[
       `This tells us <strong>how far down the chain we dig</strong>. We collect identity documents for:`
@@ -621,7 +619,7 @@ thresholds:{
   calcCta:"Open the 25% / 50% calculator"
 },
 registries:{
-  title:"Registry first, client second", eyebrow:"Section 6 · Reference",
+  title:"Registry first, client second", eyebrow:"Reference",
   subtitle:"Public registries often hand us, in a single document and for a few dollars, everything we would otherwise have to extract from the client. The back office always tries the registry first.",
   columns:["Jurisdiction","What we can obtain ourselves","Directors + shareholders?"],
   rows:[
@@ -641,7 +639,7 @@ registries:{
   ]
 },
 checklists:{
-  title:"Document checklists", eyebrow:"Section 7 · Reference",
+  title:"Document checklists", eyebrow:"Reference",
   subtitle:"Simple copies are accepted. Certified copies are not required.",
   individualTitle:"Individual buyer",
   individualItems:[
@@ -690,7 +688,7 @@ checklists:{
   spvItems:["Full corporate documentation for the SPV, as per the private company checklist","Documented link between the SPV and the Buyer","Full KYC on both entities"]
 },
 payments:{
-  title:"Payments", eyebrow:"Section 8 · Reference",
+  title:"Payments", eyebrow:"Reference",
   broker:{title:"What the broker does", role:"broker", html:`At signature, and again before the first payment falls due, the broker tells the client to pay <strong>only from the account of the entity that signed the contract</strong> — or from the personal account of the individual who signed. Framed as what it is: a way to avoid delay and further questioning. It keeps down the number of documents we have to ask for, which is what clients mind most.`},
   backoffice:{title:"What the back office does", role:"backoffice", html:`On closing the file, the back office records the <strong>authorised payer</strong> in the KYC register. At this stage the register is an Excel file shared on Box. It must be readable by finance, otherwise the control cannot physically be performed.`},
   finance:{title:"What finance does", role:"finance", html:`On every incoming payment, finance compares the remitter against the authorised payer for that contract.<ul><li><strong>Match</strong> → accept and record.</li><li><strong>No match</strong> → <strong>flag to the back office.</strong> The back office opens a KYC file on the third-party payer and, if anything is unclear, escalates.</li></ul>`},
@@ -698,7 +696,7 @@ payments:{
   banks:{html:"On banks: where the institution is well known and located in a country not subject to sanctions, no further check is needed. Otherwise the bank is screened on the portals as well."}
 },
 screening:{
-  title:"Screening: how we do it", eyebrow:"Section 9 · Reference",
+  title:"Screening: how we do it", eyebrow:"Reference",
   sources:[
     {name:"OFAC Sanctions List Search", url:"https://sanctionssearch.ofac.treas.gov/"},
     {name:"EU Sanctions Map", url:"https://www.sanctionsmap.eu/"}
@@ -719,7 +717,7 @@ screening:{
   when:["At preliminary stage (Phase 0)","On every name emerging from the documents (Phase 2)","Again before the shipping request, if the last screening is more than 6 months old","On any new party joining the transaction","On a third-party payer"]
 },
 escalation:{
-  title:"Escalation", eyebrow:"Section 10 · Reference",
+  title:"Escalation", eyebrow:"Reference",
   subtitle:"Two tracks. They are not the same and must not be merged.",
   trackA:{
     title:"Track A", sub:"Suspected sanctions match",
@@ -737,7 +735,7 @@ escalation:{
   }
 },
 toolkit:{
-  title:"Broker toolkit", eyebrow:"Section 11 · Reference",
+  title:"Broker toolkit", eyebrow:"Tool",
   subtitle:"Four ready-to-send templates. Fields in brackets must be completed before sending.",
   templates:[
     {id:"t1", title:"Document request — individual buyer",
@@ -755,7 +753,21 @@ Sanlorenzo, as a listed company, has adopted a Sanctions Compliance Program whic
 
 One practical point: please arrange for all payments to be made from the account of the party named in the contract. Payments received from a different source require a separate verification, which would delay your boat.
 
-We would be grateful to receive everything within the next few days, as our internal procedure requires the file to be completed within 15 days of signature.`},
+We would be grateful to receive everything within the next few days, as our internal procedure requires the file to be completed within 15 days of signature.`,
+     bodyZh:`尊敬的 [姓名]：
+
+为完成提交船厂的档案，我们需要您提供两份文件：
+
+1. 护照复印件。
+2. 居住地址证明，须为三个月内由第三方出具 — 例如公用事业账单、显示您地址的银行对账单、租赁协议或政府签发的居住证明。自行声明恕不接受。
+
+以电子邮件发送普通复印件即可，无需办理认证。
+
+Sanlorenzo（圣劳伦佐）作为一家上市公司，已制定并实施《制裁合规计划》，其中规定了客户尽职调查及身份核实的相关程序。上述要求适用于 Sanlorenzo 集团旗下所有公司，其中包括 Simpson Marine。所有提供的文件均会被严格保密，并仅按照 Sanlorenzo 集团的相关程序用于核实用途。
+
+另有一项实务提示：请安排以合同所载主体名下的账户支付所有款项。若款项来自其他来源，我们须另行核查，将导致交船延误。
+
+恳请您于近日内提供上述文件 — 依据我们的内部程序，档案须在签约后 15 天内完成。`},
     {id:"t2", title:"Document request — corporate buyer",
      subject:"Documentation required to complete your purchase — [Boat model / Hull no.]",
      body:`Dear [Name],
@@ -775,7 +787,25 @@ Sanlorenzo, as a listed company, has adopted a Sanctions Compliance Program whic
 
 Please also arrange for all payments to be made from the account of the company named in the contract — payments from another entity require a separate verification and would delay delivery.
 
-We would be grateful to receive everything within the next few days, as our internal procedure requires the file to be completed within 15 days of signature.`},
+We would be grateful to receive everything within the next few days, as our internal procedure requires the file to be completed within 15 days of signature.`,
+     bodyZh:`尊敬的 [姓名]：
+
+为完成提交船厂的档案，我们需要记录购买方公司的股权结构。
+
+凡可从公开公司登记册取得的信息，我们将自行调取 — 该部分无需您费心。需要您提供的包括：
+
+1. [由注册代理人出具、日期在三个月以内的 Certificate of Incumbency]（适用于离岸公司）
+2. [追溯至个人层面的股权结构图，并附图中出现的每一家公司的登记册摘录或 Certificate of Incumbency]（适用于股东并非自然人的情形）
+3. 持有公司 25% 或以上股权者、以及实际控制公司者的护照复印件及居住地址证明。
+4. 购买方公司每一位董事的护照复印件及居住地址证明。
+
+地址证明须为三个月内由第三方出具 — 公用事业账单、显示地址的银行对账单、租赁协议或政府居住证明均可。以电子邮件发送普通复印件即可。
+
+Sanlorenzo（圣劳伦佐）作为一家上市公司，已制定并实施《制裁合规计划》，其中规定了客户尽职调查、身份核实及制裁筛查的相关程序。上述要求适用于 Sanlorenzo 集团旗下所有公司，其中包括 Simpson Marine。准确识别最终实益拥有人是该流程中的重要环节。所有文件均会被严格保密，并仅用于核实用途。
+
+亦请安排以合同所载公司名下的账户支付所有款项 — 由其他主体付款将触发另行核查，并导致交付延误。
+
+恳请您于近日内提供上述文件 — 依据我们的内部程序，档案须在签约后 15 天内完成。`},
     {id:"t3", title:"Trust structure",
      subject:"",
      lead:"Use this when the buyer, or any owner in the chain, turns out to be a trust. Send it as the request itself — it sets out what we need and why.",
@@ -787,14 +817,24 @@ The trust deed of [Name of the Trust], in order to identify the ultimate benefic
 
 For each of these individuals we will also require a copy of a valid passport and a proof of residential address, such as a recent utility bill or bank statement, in order to complete our verification.
 
-In the case of a trust structure, this necessarily requires us to go beyond the corporate chart and understand who ultimately stands behind the trust, who may control or influence it, who may benefit from it, and who will ultimately benefit from or use the vessel. This is a standard compliance requirement and does not imply any concern regarding the transaction.`},
+In the case of a trust structure, this necessarily requires us to go beyond the corporate chart and understand who ultimately stands behind the trust, who may control or influence it, who may benefit from it, and who will ultimately benefit from or use the vessel. This is a standard compliance requirement and does not imply any concern regarding the transaction.`,
+     bodyZh:`尊敬的 [姓名]：
+
+由于本次购买涉及信托架构，为完成核实程序，我们需要以下资料：
+
+该信托的信托契约（[信托名称]），须能够识别最终实益拥有人（UBO）；或者提供相关摘录、受托人证明书或其他同等法律确认文件，以充分识别与该信托相关的人员，包括委托人（settlor）、受托人（trustee）、任何保护人／监护人／执行监督人（protector / guardian / enforcer）、受益人或受益人类别，以及任何对该信托行使控制或影响力的人员。
+
+对于上述每一位相关人员，我们还需要其有效护照复印件及居住地址证明（例如近期水电费账单或银行对账单），以完成我们的核实程序。
+
+在信托架构下，我们必须超越企业架构图本身，进一步了解该信托背后的实际主体、谁可能对其行使控制或影响、谁可能从中受益，以及最终谁将使用或受益于该船只。这是一项标准的合规要求，并不意味着我们对本次交易存在任何疑虑。`},
     {id:"t4", title:"Short chaser",
      subject:"", lead:"",
-     body:`Dear [Name], a quick reminder on the documents for [Boat model]. We need them to complete the file for the shipyard, and the boat cannot be released until the file is closed. Anything I can help with on my side?`}
+     body:`Dear [Name], a quick reminder on the documents for [Boat model]. We need them to complete the file for the shipyard, and the boat cannot be released until the file is closed. Anything I can help with on my side?`,
+     bodyZh:`尊敬的 [姓名]：关于 [船型] 所需文件，谨此提醒。我们需要完成提交船厂的档案，而档案未关闭前船只无法放行。如有任何我可以协助之处，请随时告知。`}
   ]
 },
 records:{
-  title:"Files Management", eyebrow:"Section 13 · Reference",
+  title:"Files Management", eyebrow:"Reference",
   whereTitle:"Where the documents live",
   whereHtml:"All collected documents go on Box, under:",
   boxPath:"SA-Sales > SA-KYC",
@@ -822,7 +862,7 @@ wizard:{
       {id:"trust", title:"Trust", sub:"Buyer is, or is owned by, a trust"},
       {id:"spv", title:"SPV / registered owner different from Buyer", sub:"A special purpose vehicle or separate registered owner"}
     ]},
-  step2Jurisdiction:{title:"2. Where is the company incorporated?", sub:"This tells us whether the public registry already covers shareholders, following Section 6."},
+  step2Jurisdiction:{title:"2. Where is the company incorporated?", sub:"This tells us whether the public registry already covers shareholders, following the guidance under Registries by jurisdiction."},
   step2Individuals:{title:"Are the shareholders of the signing company already individuals?",
     yes:"Yes, shareholders are natural persons", no:"No, one or more shareholders are companies (an ownership chart will be needed)"},
   step3:{title:"3. Is this a trade-in / part-exchange?", sub:"A used boat entering Simpson Marine's ownership before this sale.",
@@ -831,21 +871,21 @@ wizard:{
     yes:"Yes", no:"No",
     followup:"Has this Brand Representative been screened in the last 6 months?", followupYes:"Yes, within 6 months", followupNo:"No / not sure"},
   resultsTitle:"Document checklist",
-  resultsSub:"Every item below is traceable to Section 7 of the guidelines.",
+  resultsSub:"Every item below is traceable to the Document checklists guidance.",
   contextNotesTitle:"Context notes",
-  tradeInNote:{type:"warn", html:"This is a trade-in: two separate KYC files are required — one on the party selling the boat to Simpson Marine, and one on the party buying it. (Section 2)"},
-  brandRepNote:{type:"rule", html:"Sale to a Brand Representative: simplified file. Keep the appointment-time KYC confirmation on file. (Section 2, Section 4 Phase 4)"},
-  brandRepStaleNote:{type:"danger", html:"Last screening is more than 6 months old (or unconfirmed): re-verify the documents and re-run the screening before proceeding. (Section 2, Section 4 Phase 4)"},
-  brandRepFreshNote:{type:"rule", html:"Screening within the last 6 months: the file on record is sufficient, no re-verification needed. (Section 2)"},
+  tradeInNote:{type:"warn", html:"This is a trade-in: two separate KYC files are required — one on the party selling the boat to Simpson Marine, and one on the party buying it. (see 'When is KYC required?' in the FAQ)"},
+  brandRepNote:{type:"rule", html:"Sale to a Brand Representative: simplified file. Keep the appointment-time KYC confirmation on file. (see 'When is KYC required?' in the FAQ, and Phase 4 — Ongoing monitoring)"},
+  brandRepStaleNote:{type:"danger", html:"Last screening is more than 6 months old (or unconfirmed): re-verify the documents and re-run the screening before proceeding. (see 'When is KYC required?' in the FAQ, and Phase 4 — Ongoing monitoring)"},
+  brandRepFreshNote:{type:"rule", html:"Screening within the last 6 months: the file on record is sufficient, no re-verification needed. (see 'When is KYC required?' in the FAQ)"},
   alwaysReminders:[
-    {type:"rule", html:"Directors are documented only at the signing company — directors of intermediate holding companies are out of scope. (Section 7)"},
-    {type:"rule", html:"The ownership chart is a map, not evidence — every company on it still needs its own document. (Section 7)"}
+    {type:"rule", html:"Directors are documented only at the signing company — directors of intermediate holding companies are out of scope. (see Document checklists)"},
+    {type:"rule", html:"The ownership chart is a map, not evidence — every company on it still needs its own document. (see Document checklists)"}
   ],
-  registryFirstNote:"Registry first, client second (Section 6): the back office always tries the public registry before asking the client.",
+  registryFirstNote:"Registry first, client second: the back office always tries the public registry before asking the client.",
   docs:{
     passport:{name:"Valid passport", proves:"Identity", validity:"—"},
     proofResidence:{name:"Proof of residential address", proves:"Current residential address", from:"Client", validity:"Max 3 months, third party, not self-declared"},
-    registryDoc:{name:"Registry extract", proves:"Current directors and shareholders with stakes, and that the company exists", from:"Registry (back office)", validity:"Varies — see Section 6"},
+    registryDoc:{name:"Registry extract", proves:"Current directors and shareholders with stakes, and that the company exists", from:"Registry (back office)", validity:"Varies — see Registries by jurisdiction"},
     coi:{name:"Certificate of Incumbency", proves:"Current directors, officers, members, registered office, good standing — as at date of issue", from:"Client (registered agent)", validity:"Max 3 months"},
     chart:{name:"Ownership chart", proves:"Map of the ownership structure to individual owners", from:"Client", validity:"—"},
     intermediateDocs:{name:"Registry extract or Certificate of Incumbency for each intermediate company", proves:"Existence and, where available, ownership of each company on the chain to an owner we must identify", from:"Registry where obtainable, otherwise client", validity:"CoI max 3 months"},
@@ -867,7 +907,7 @@ calculator:{
   addRootPrompt:"Add the Buyer's direct owners to begin.",
   panel25:{title:"25% — identification threshold", note:"Multiplicative down the chain. At or above 25% effective, collect passport + proof of residence. Below 25%, that branch can stop."},
   panel50:{title:"50% — OFAC blocking rule", note:"Not multiplicative — cascades level by level, and listed stakes at the same level are added together. A company is blocked once the listed/blocked share of it reaches 50%."},
-  verdictAbove:"Above threshold — request passport and proof of residence",
+  verdictAbove:"Above threshold — Perform further KYC checks",
   verdictBelow:"Below threshold — no need to identify further on this branch",
   verdictBlocked:"BLOCKED — 50% or more held (directly or in cascade) by listed subjects",
   verdictFlag:"Between 25% and 50% held by a listed subject — no automatic block, but the transaction stops and goes to the KYC Compliance Officer",
@@ -884,436 +924,7 @@ roleTimeline:{
   raciTitle:"RACI — filtered by role",
   detailTitle:"Phase detail"
 }
-}/*END_DATA_EN*/, zh: /*DATA_ZH*/{
-lang:"zh", dir:"ltr",
-ui:{
-  searchPlaceholder:"搜索指引内容…",
-  brandT1:"KYC 与制裁合规",
-  brandT2:"Simpson Marine — 内部文件",
-  skipLink:"跳转到正文",
-  roleAllLabel:"所有角色",
-  printBtn:"打印 / PDF",
-  nav:{
-    groupTools:"工具", groupReference:"参考资料",
-    home:"简介", wizard:"文件清单向导", calculator:"25% / 50% 门槛计算器", roleTimeline:"角色视图与时间线",
-    faq:"常见问题", kycRequired:"何时必须进行 KYC", raci:"职责分工（RACI）", phases:"流程分阶段说明",
-    thresholds:"实益拥有人的识别", registries:"各司法管辖区登记册", checklists:"文件清单",
-    payments:"付款", screening:"筛查", escalation:"升级处理", toolkit:"经纪人工具包", records:"文件管理"
-  },
-  roles:{ all:"所有角色", broker:"经纪人", backoffice:"后台", finance:"财务", compliance:"KYC 合规负责人", cso:"首席销售官及助理" },
-  common:{
-    back:"上一步", next:"下一步", restart:"重新开始", copy:"复制到剪贴板", copied:"已复制", showOnlyRole:"仅显示该角色的事项",
-    showAll:"显示全部事项", print:"打印本页", source:"可追溯至", offshoreOnly:"仅限离岸公司", validity:"有效期",
-    provesLabel:"证明内容", fromLabel:"索取来源", noResults:"未找到结果。", jumpTo:"跳转至章节",
-    reminderTitle:"务必牢记", officerReminder:"存疑案例一律转交 KYC 合规负责人 — 本工具用于辅助决策，并非最终决定依据。",
-    confidential:"保密文件 — 仅供内部使用，严禁向公司外部提供。",
-    addOwner:"+ 添加所有人", remove:"移除", markListed:"受制裁 / 被列名主体", ofParent:"占上一级比例",
-    person:"自然人", company:"公司", buyer:"买方"
-  }
-},
-home:{
-  eyebrow:"简介",
-  title:"客户身份识别（KYC）与制裁合规指引",
-  subtitle:"Simpson Marine — 新船销售",
-  issuedLine:"依据 Sanlorenzo S.p.A. 于 2025 年 5 月 15 日经董事会批准的《制裁合规计划》（SCP）制定。",
-  version:"版本 1.0",
-  sectionTitle:"1. 制定本指引的原因",
-  body:[
-    `Sanlorenzo（圣劳伦佐）作为一家上市公司，已制定并实施<strong>《制裁合规计划》（Sanctions Compliance Program，缩写为 SCP）</strong>。该文件经其董事会批准，规定了客户尽职调查、身份核实及制裁筛查的具体程序。其要求适用于 Sanlorenzo 集团旗下所有公司，其中包括 Simpson Marine。本指引下文一律以"SCP"指称该文件。`,
-    `简而言之：在出售船只之前，我们必须清楚真正的买方是谁，并且必须能够证明我们已完成核查。`,
-    `本指引将 SCP 的要求转化为经纪人、商务后台及财务团队在实际工作中需遵循的步骤，适用于<strong>Simpson Marine 在东南亚的所有销售实体</strong>，无一例外，同时适用于我们销售的<strong>所有新船品牌</strong>，不限于 Sanlorenzo 与 Bluegame。`
-  ],
-  callouts:[
-    {type:"danger", html:`<strong>SCP 属内部文件，严禁向公司外部提供</strong> — 不得提供予客户、其顾问或交易对手。Simpson Marine 员工可在 Box 共享文件夹中查阅。`},
-    {type:"rule", html:`<strong>任何人都不得遗忘的一条规则：</strong> 在 KYC 档案完成并获签署之前，船只不得从意大利发运，亦不得交付予客户。`}
-  ],
-  quickLinksTitle:"直接前往工具",
-  quickLinks:[
-    {route:"wizard", title:"文件清单向导", desc:"回答有关买方的几个问题，即可获得准确的文件清单。"},
-    {route:"calculator", title:"25% / 50% 门槛计算器", desc:"构建股权链，正确计算两个门槛 — 二者永不混合计算。"},
-    {route:"role-timeline", title:"角色视图与时间线", desc:"按您的职责筛选全部内容，并查看 15 天时限。"}
-  ],
-  footNote:"本指引由 Simpson Marine 依据 Sanlorenzo S.p.A.《制裁合规计划》发布。有关本指引适用问题，请咨询 KYC 合规负责人。"
-},
-faq:{
-  title:"常见问题", eyebrow:"第 12 节 · 参考资料",
-  subtitle:"可搜索的常见问题解答。",
-  items:[
-    {q:"我们为什么要做 KYC？该如何向买方解释？",
-     a:`Sanlorenzo（圣劳伦佐）作为一家上市公司，已制定并实施《制裁合规计划》（"SCP"），其中规定了包括客户尽职调查、身份核实及制裁筛查在内的相关程序。根据该计划的规定，上述严格的合规要求适用于 Sanlorenzo 集团旗下所有公司，其中当然也包括 Simpson Marine 等全资子公司。准确收集客户资料，尤其是识别相关最终实益拥有人（"UBO"），以及其他涉及船舶所有权、控制权、受益权或使用权的相关人士，是整个合规流程中的重要环节。其目的在于保护 Sanlorenzo，避免面临国际制裁相关风险。所有提供的文件均会被严格保密，并仅用于客户身份识别（KYC）、制裁合规及与交易相关的核实用途。`},
-    {q:"什么可以作为住址证明？",
-     a:`参见第 7 节。须为近期文件（最长三个月），由第三方出具，绝不接受自行声明。`},
-    {q:"客户以个人身份签约，但希望将船只登记于一家公司名下。应如何处理？",
-     a:`该公司须在我方同意转让之前完成完整 KYC。第 12.1 条要求任何转让均须取得我方书面同意，而在新主体的档案完成之前不予同意。`},
-    {q:"签约后客户的股权结构发生变更，是否有影响？",
-     a:`有。第 14.2 条要求客户就实益拥有人的任何变更通知我方。须重启档案并重新筛查。`},
-    {q:"该船为我方折价换购后再行转售的船只，是否需要重新做 KYC？",
-     a:`需要 — 共两份档案。一份针对将船只出售给我方的一方，一份针对从我方购入的一方。每当船只经由我方所有权流转，双方均须核查。`},
-    {q:"我们向品牌代表（Brand Representative）销售，是否需要完整 KYC？",
-     a:`采用简化流程。该品牌代表在委任时已通过 KYC，须留存该确认文件。若最近一次筛查距今已超过 6 个月，则须重新核验文件并再次执行筛查。登记表中可查得上次执行的时间。`},
-    {q:"筛查结果出现部分姓名匹配，我该怎么办？",
-     a:`不得自行处理。按第 9 节的判读步骤执行；若疑问仍存，按路径 A 升级处理。切勿就此与客户联系。`},
-    {q:"客户拒绝提供某份文件。",
-     a:`不得自行与其协商，亦不得任其拖延至第 15 天。应升级至 KYC 合规负责人，由其决定后续处理方式。`}
-  ]
-},
-kycRequired:{
-  title:"何时必须进行 KYC", eyebrow:"第 2 节 · 参考资料", question:"何时需要进行 KYC？",
-  subtitle:"按情形筛选，查看是否需要完整 KYC 档案。",
-  alwaysTitle:"必须进行的情形",
-  alwaysRows:[
-    {situation:"新船销售，任何品牌、任何 Simpson Marine 实体", requirement:"对买方及其实益拥有人进行完整 KYC"},
-    {situation:"向品牌代表（Brand Representative）销售", requirement:"简化档案：该品牌代表在委任时已通过 KYC，须留存该确认文件；若最近一次筛查距今已超过 6 个月，则须重新核验文件并重新执行筛查"},
-    {situation:"以旧换新／折价换购：二手船进入我方所有权", requirement:"两份独立的 KYC 档案 — 一份针对将船只出售给我方的一方，一份针对从我方购入的一方"},
-    {situation:"在交船前取代买方或被指定为买方的任何一方", requirement:"在同意转让之前，须对新的一方完成完整 KYC"},
-    {situation:"登记船东与合同买方不一致", requirement:"对双方均须完成完整 KYC"}
-  ],
-  notRequiredTitle:"无需进行的情形",
-  notRequiredText:"不涉及所有权经由 Simpson Marine 转移的纯二手船经纪交易。",
-  note:{type:"warn", html:`注意：即使在纯经纪业务中，若对交易对手产生任何疑虑 — 名字似曾在新闻中出现、架构不透明、付款路径异常 — 亦应向 KYC 合规负责人报告。协助受制裁主体本身即属禁止行为，无论我方是否取得所有权。`}
-},
-raci:{
-  title:"职责分工", eyebrow:"第 3 节 · 参考资料",
-  subtitle:"KYC 流程的 RACI 矩阵。请在上方选择角色以筛选。",
-  roleOrder:["broker","backoffice","finance","compliance","cso"],
-  officerNote:`KYC 合规负责人 — 商务团队与 Sanlorenzo SCP Unit 之间的内部升级处理节点。任何非常规情形须先经此环节，方可继续推进。`,
-  tasks:[
-    {task:"向客户收集资料与文件", cells:{broker:"does"}},
-    {task:"在两个官方网站进行筛查", cells:{backoffice:"does"}},
-    {task:"核验文件的有效性与完整性", cells:{backoffice:"does"}},
-    {task:"填写 SCP 附件 2 表格", cells:{backoffice:"does"}},
-    {task:"维护档案与 KYC 登记表", cells:{backoffice:"does"}},
-    {task:"催办客户补交文件", cells:{broker:"does", backoffice:"triggers"}},
-    {task:"确定授权付款方", cells:{backoffice:"does", finance:"consulted"}},
-    {task:"核对每笔进账的汇款人", cells:{finance:"does"}},
-    {task:"报告来自非授权来源的付款", cells:{backoffice:"receives", finance:"does", compliance:"informed"}},
-    {task:"就复杂或不明情形作出判断", cells:{broker:"flags", backoffice:"flags", compliance:"decides"}},
-    {task:"与 Sanlorenzo SCP Unit 对接", cells:{compliance:"does", cso:"informed"}},
-    {task:"签署完成的档案", cells:{cso:"does"}},
-    {task:"向意大利船厂提交档案", cells:{cso:"does"}}
-  ],
-  cellLabel:{does:"执行", triggers:"触发", consulted:"被咨询", flags:"上报", receives:"接收", decides:"决定", informed:"知悉"}
-},
-phases:{
-  title:"流程分阶段说明", eyebrow:"第 4 节 · 参考资料",
-  subtitle:"五个阶段，自签约起 15 天的时限，以及持续至交船的监控。",
-  list:[
-    {id:"phase0", name:"阶段 0", label:"签约前的初步筛查", timing:"签约之前",
-     html:`<p>当洽谈进入订购合同阶段时即启动。</p>
-     <div class="role-block" data-role="broker"><span class="badge role-broker">经纪人</span>收集并转交后台：</div>
-     <ul><li>全名、国籍、居住国</li><li>若由公司购买：公司名称、注册地、以及预期的最终实益拥有人</li></ul>
-     <div class="role-block" data-role="backoffice"><span class="badge role-backoffice">后台</span>将上述名称在两个官方网站进行检索，将结果保存为 PDF 或截图，注明日期及执行检索人员的姓名，并在 KYC 登记表中建立记录。</div>
-     <ul><li><strong>无匹配</strong> → 继续推进至签约。</li><li><strong>可能匹配</strong> → 立即停止，上报，不得向客户作任何说明。</li></ul>
-     <p class="muted small">处理时限：48 小时。此步骤确保我们符合 SCP 的要求，即尽职调查须在协议签署<em>之前</em>完成。</p>`},
-    {id:"phase1", name:"阶段 1", label:"签约", timing:"第 0 天",
-     html:`<p>销售标准条款与条件第 14.1 条<strong>必须填写最终实益拥有人的姓名</strong>。<span class="field-placeholder">[●]</span> 栏位不得留空发出。</p>
-     <p>合同日期 — 即第二个签名的日期 — 为 15 天期限的第 0 天。此处的"天"指日历日，包含周末及公众假期。</p>
-     <div class="role-block" data-role="broker"><span class="badge role-broker">经纪人</span> — 签约时，经纪人应以明确的措辞告知客户：</div>
-     <div class="callout">"请务必使用签署本合同的主体名下的账户付款。若款项来自其他方，我们必须另行进行核查，这可能会延误您船只的交付。"</div>
-     <div class="role-block" data-role="backoffice"><span class="badge role-backoffice">后台</span>在 Box 上建立档案。</div>`},
-    {id:"phase2", name:"阶段 2", label:"文件收集", timing:"第 0–15 天",
-     html:`<div class="role-block" data-role="broker"><span class="badge role-broker">经纪人</span>使用第 11 节的标准模板发出文件索取函。</div>
-     <div class="role-block" data-role="backoffice"><span class="badge role-backoffice">后台</span>：</div>
-     <ol><li><strong>优先尝试公开登记册</strong>（第 6 节），仅就登记册无法提供的部分向客户索取</li>
-     <li>核查所收到的每份文件是否完整、清晰且在有效期内</li>
-     <li>填写 SCP <strong>附件 2</strong> — OFAC 身份识别与风险评估表</li>
-     <li>对<strong>文件中出现的每一个名称</strong>重新进行筛查，而不仅限于阶段 0 中申报的名称：实际实益拥有人、法定代表人、登记船东</li></ol>
-     <p><strong>催办时间表：</strong> 第 5 天首次提醒 · 第 10 天第二次提醒 · 第 13 天向经纪人发出警示并抄送 KYC 合规负责人 · <strong>第 15 天档案仍未完成 → 自动升级处理。</strong></p>`},
-    {id:"phase3", name:"阶段 3", label:"完成与签署", timing:"—",
-     html:`<div class="role-block" data-role="backoffice"><span class="badge role-backoffice">后台</span>整理完整档案：已签署的附件 2、全部文件、筛查证据、合同副本、授权付款方信息。</div>
-     <div class="role-block" data-role="cso"><span class="badge role-cso">首席销售官及助理</span> — 档案以电子方式递交首席销售官助理，由首席销售官签署，随后转交意大利船厂。</div>
-     <p>档案此时<strong>已关闭，但并未冻结。</strong></p>`},
-    {id:"phase4", name:"阶段 4", label:"交船前的持续监控", timing:"直至交船",
-     html:`<p>自签署至交船期间，三项控制措施持续运行：</p>
-     <div class="role-block" data-role="finance"><span class="badge role-finance">财务</span>对照授权付款方核对每一笔付款（第 8 节）</div>
-     <p>若在向意大利发出发运请求时，最近一次筛查距今已超过 <strong>6 个月</strong>，则<strong>必须重新筛查</strong>。文件已在档，此环节仅需将姓名重新在两个网站检索一次。</p>
-     <p><strong>实益拥有人的任何变更，或合同的任何转让</strong>，均须重启档案。第 14.2 条要求客户在实益拥有人变更时通知我方；第 12.1 条赋予我方拒绝同意转让的权利，我方将行使该权利。</p>`,
-     callout:{type:"danger", html:"KYC 档案未完成 → 不得向意大利发出发运请求 → 不得交船。"}}
-  ]
-},
-thresholds:{
-  title:"实益拥有人的识别", eyebrow:"第 5 节 · 参考资料",
-  subtitle:"两个比例门槛，用途完全不同，切勿混淆。",
-  t25:{ title:"25% — 识别门槛", body:[
-      `用于确定<strong>我们需要向下追溯到何种程度</strong>。以下人员须收集身份文件：`
-    ], list:[
-      `持有购买方公司<strong>25% 或以上</strong>股权者，须循中间层公司逐级追溯至自然人`,
-      `即使持股低于 25%，但<strong>实际行使控制权</strong>者 — 特殊表决权、否决权、任免董事的权力`,
-      `若无人达到 25%，则为<strong>高级管理人员</strong>或董事`
-    ]},
-  t50:{ title:"50% — OFAC 阻断规则", body:[
-      `根据 OFAC 的 50% 规则（2008 年 2 月 14 日及 2014 年 8 月 13 日的声明，已载于 SCP），若一家公司由一名或多名被列名主体<strong>直接或间接</strong>持有 <strong>50% 或以上</strong>股权（<strong>多方持股须合并计算</strong>），则该公司本身即被视为受阻断，<strong>即使其名称未出现在任何名单上</strong>。`,
-      `三名被列名主体分别持股 20%、20% 与 15%，合计 55%，该公司即受阻断。`
-    ]},
-  practical:{type:"warn", html:`<strong>实务后果：</strong> 仅以公司名称在网站上检索而未发现结果，<strong>并不足够</strong>。股东姓名同样必须检索。这正是我们收集股东名册与股权结构图、而非止步于公司名称的原因。`},
-  intermediate:{type:"warn", html:`若被列名主体的持股介于 25% 与 50% 之间，不构成自动阻断 — 但交易须暂停并转交 KYC 合规负责人。`},
-  calcCta:"打开 25% / 50% 计算器"
-},
-registries:{
-  title:"先查登记册，后问客户", eyebrow:"第 6 节 · 参考资料",
-  subtitle:"公开登记册往往能以数美元的成本、通过单一文件提供我们原本需要向客户索取的全部信息。后台须一律先尝试登记册。",
-  columns:["司法管辖区","我们可自行获取的文件","是否含董事及股东？"],
-  rows:[
-    {id:"hk", jurisdiction:"香港", obtainable:"经 ICRIS 获取周年申报表（NAR1），每份约 22 港元", coverage:"是 — 董事、公司秘书、成员、股本", level:"yes"},
-    {id:"sg", jurisdiction:"新加坡", obtainable:"经 BizFile / iShop@ACRA 获取 ACRA 商业档案，约 5.50 新元", coverage:"是 — 属公开文件，任何人均可购买", level:"yes"},
-    {id:"th", jurisdiction:"泰国", obtainable:"DBD 认证摘录，需付费，1–3 个工作日", coverage:"是，但仅限认证摘录。免费档案不足以满足要求", level:"yes"},
-    {id:"my", jurisdiction:"马来西亚", obtainable:"SSM e-Info，需预付费账户", coverage:"部分 — 董事有，股东须逐案确认", level:"partial"},
-    {id:"id", jurisdiction:"印度尼西亚", obtainable:"AHU Online，基础公司资料", coverage:"否 — 股权信息载于 Akta，须由客户提供", level:"no"},
-    {id:"other", jurisdiction:"台湾、中国大陆、越南、菲律宾", obtainable:"覆盖情况不一", coverage:"向客户索取", level:"no"},
-    {id:"offshore", jurisdiction:"离岸法域 — BVI、开曼、马绍尔群岛、塞舌尔、巴拿马、伯利兹", obtainable:"仅可确认公司存续与状态", coverage:"一律为否", level:"no"}
-  ],
-  warningsTitle:"三点提示",
-  warnings:[
-    `<strong>离岸登记册在制度设计上即不公开股权信息。</strong> 成员名册由注册代理人保管。在 BVI，该名册虽已向注册处备案，但属非公开性质；在开曼，可付费购买检索报告，但成员信息仍无法取得。唯一途径是向客户索取由<strong>注册代理人出具的 Certificate of Incumbency（在职证明书）</strong>，且<strong>出具日期须在三个月以内</strong> — 该文件仅反映其出具之日的状况。`,
-    `<strong>香港的 NAR1 属年度快照</strong>，可能已有长达十二个月的时间差。若客户提及有变更，或日期无法对应，须要求确认当前情况。香港公司须于内部备存的重要控制人登记册（SCR）<strong>并不公开</strong> — 必要时向客户索取。`,
-    `<strong>登记册显示的是法律上的股东，而非实益拥有人。</strong> 若股东本身是一家公司，须继续向上追溯。若出现代名人或受托人，则登记册的作用已尽，须转而向客户索取。`
-  ]
-},
-checklists:{
-  title:"文件清单", eyebrow:"第 7 节 · 参考资料",
-  subtitle:"接受普通复印件，无需公证或认证副本。",
-  individualTitle:"个人买方",
-  individualItems:[
-    {name:"有效护照", proves:"身份", from:"客户", validity:"—"},
-    {name:"居住地址证明", proves:"当前居住地址", from:"客户", validity:"最长三个月"}
-  ],
-  proofOfResidence:{
-    title:"住址证明须为：",
-    lead:"近期文件（最长三个月），由第三方出具，不接受自行声明。",
-    acceptable:["公用事业账单（电费、燃气费、水费或固定电话费）","显示地址的银行或信用卡对账单","已签署或登记备案的租赁协议","政府签发的居住证明","由银行出具并确认地址的证明函","显示地址的住宅或车辆保险单","政府部门发出的正式函件（例如税务文件）"]
-  },
-  companyTitle:"私人公司",
-  companyStep1:`<strong>第一步 — 后台调取登记册文件。</strong> 若该文件已载明董事及股东持股比例，则该文件即为所需文件，无须就架构再作任何询问。`,
-  companyStep2Title:"第二步 — 仅就缺失部分向客户索取：",
-  companyStep2:[
-    {name:"Certificate of Incumbency（在职证明书）", detail:"适用于离岸公司，或登记册未披露股权信息的情形。出具日期须在三个月以内。"},
-    {name:"股权结构图", detail:"仅在签约公司的股东并非自然人时需要。"},
-    {name:"该结构图上每一家中间公司的登记册摘录或 Certificate of Incumbency", detail:"限于通往须识别的所有人的各个分支。"},
-    {name:"签约公司每一位董事的身份文件及住址证明", detail:""},
-    {name:"持股 25% 或以上者、以及实际行使控制权者的护照与住址证明", detail:""}
-  ],
-  reminders:[
-    {type:"rule", html:`<strong>仅须记录签约公司的董事。</strong> 在向上追溯股权链过程中遇到的中间控股公司的董事不在范围之内 — 对于该等公司，我们仅取其股权信息，不涉及其董事会成员。`},
-    {type:"rule", html:`<strong>股权结构图是路线图，而非证据。</strong> 它的作用在于指明查证方向，并以书面形式记录客户所陈述的架构。图中出现的每一家公司此后均须以其自身的文件加以佐证 — 有公开登记册的以登记册摘录佐证，没有的则以 Certificate of Incumbency 佐证。若结构图与文件不一致，以文件为准，并将该案例转交 KYC 合规负责人。`}
-  ],
-  howDeepTitle:"追溯深度",
-  howDeep:`沿每一分支将持股比例相乘：若某公司持有买方 30% 股权，而某自然人持有该公司 50% 股权，则该自然人的实际持股为 15%，低于门槛。当某一分支上已无任何所有人可能达到 25% 时，即可停止对该分支取证。`,
-  howDeepWarn:{type:"warn", html:`注意：<strong>50% 阻断规则并非按乘积计算</strong>，而是逐级传导。被列名主体持有某公司 50% 股权，而该公司持有买方 50% 股权，则买方即受阻断。`},
-  docTableTitle:"各类公司文件的作用",
-  docTable:[
-    {doc:"登记册摘录", sub:"香港周年申报表（NAR1）、新加坡 ACRA 商业档案、泰国 DBD 认证摘录、意大利 visura camerale", proves:"现任董事、现有股东及其持股比例，同时证明公司存续", when:"核心文件。凡可取得，单凭此一份文件即可厘清架构。"},
-    {doc:"Certificate of Incumbency（在职证明书）", sub:"", proves:"相同内容，但由注册代理人应请求出具、反映其出具之日的状况，而非来自登记册：现任董事、高级职员、成员、注册办事处、良好存续状态", when:"仅限离岸法域，即无公开登记册摘录可取得的情形。出具日期不得超过三个月。"},
-    {doc:"Certificate of Incorporation（公司注册证书）", sub:"", proves:"仅证明该公司于某日以某名称及编号成立。签发一次，此后不再更新", when:"不予索取。该文件无法说明公司当前的所有权与管理层情况，且公司存续已由上述任一文件证明。"}
-  ],
-  listedTitle:"于认可受监管市场上市的公司",
-  listedItems:["上市及所在市场的证明","仅需签署董事的身份文件"],
-  listedNote:"无须向上追溯股权链。",
-  trustTitle:"信托",
-  trustItems:[
-    "该信托的信托契约；或提供相关摘录、受托人证明书或其他同等法律确认文件，须足以识别与该信托相关的人员",
-    "识别委托人（settlor）、受托人（trustee）、任何保护人／监护人／执行监督人（protector / guardian / enforcer）、受益人或受益人类别，以及任何对该信托行使控制或影响力的人员",
-    "上述每一位人员的护照及住址证明"
-  ],
-  trustNote:"在信托架构下，我们必须超越企业架构图本身，进一步了解该信托背后的实际主体、谁可能对其行使控制或影响，以及最终谁将使用或受益于该船只。",
-  spvTitle:"特殊目的公司（SPV）或与买方不同的登记船东",
-  spvItems:["该 SPV 的全套公司文件，按私人公司清单要求","SPV 与买方之间关系的书面证明","对两个主体均完成完整 KYC"]
-},
-payments:{
-  title:"付款", eyebrow:"第 8 节 · 参考资料",
-  broker:{title:"经纪人的职责", role:"broker", html:`在签约时，以及在首笔款项到期之前，经纪人应告知客户<strong>仅可使用签署合同的主体名下账户付款</strong> — 若由个人签署，则使用该个人的账户。表述方式应如实说明：这是为了避免延误与额外的追问，同时可以减少我们需要索取的文件数量 — 而客户最介意的正是这一点。`},
-  backoffice:{title:"后台的职责", role:"backoffice", html:`档案关闭时，后台在 KYC 登记表中记录<strong>授权付款方</strong>。现阶段该登记表为共享于 Box 的 Excel 文件。该表须对财务开放查阅，否则相关控制无法实际执行。`},
-  finance:{title:"财务的职责", role:"finance", html:`对每一笔进账，财务须将汇款人与该合同的授权付款方进行比对。<ul><li><strong>一致</strong> → 接收并入账。</li><li><strong>不一致</strong> → <strong>向后台报告。</strong> 后台针对该第三方付款人建立 KYC 档案；若存有任何不明之处，则升级处理。</li></ul>`},
-  cash:{type:"danger", html:"不接受现金。任何退款仅可退回至款项原始来源账户。"},
-  banks:{html:"关于银行：若该机构为知名机构且位于未受制裁的国家，无须另行核查。否则该银行亦须在网站上进行筛查。"}
-},
-screening:{
-  title:"筛查的执行方式", eyebrow:"第 9 节 · 参考资料",
-  sources:[
-    {name:"OFAC Sanctions List Search", url:"https://sanctionssearch.ofac.treas.gov/"},
-    {name:"EU Sanctions Map", url:"https://www.sanctionsmap.eu/"}
-  ],
-  sourcesNote:"两者均已载于我方销售标准条款与条件第 14.3 条。",
-  evidenceTitle:"证据留存",
-  evidenceHtml:`我方未使用商业筛查工具，因此<strong>证据本身即是控制手段</strong>。每次检索均须保存为 PDF 或截图，显示检索词、检索结果、日期及执行人员姓名。未经保存的检索视同未曾进行。`,
-  readingTitle:"检索结果的判读",
-  readingSteps:[
-    "将所检索的名称与名单上的名称进行比对。是否一方为个人，而另一方为船舶、组织或公司？若是，则判定为无匹配。",
-    "若仅部分名称相符 — 例如姓氏相同但名字完全不同，且不存在拼写差异 — 则判定为无匹配。",
-    "若存在其他重合之处，须比对全部可用识别信息：全名、地址、国籍、护照、出生日期与地点、已知别名。",
-    "若掌握的信息不足以作出任一方向的结论，则不得作出结论。应返回并取得更多信息。",
-    "若无合理依据得出结论，或若多项识别信息相符，则交易不得继续。"
-  ],
-  stopNote:{type:"warn", html:"仅在确定不存在匹配时方可停止筛查。只要存有疑问，筛查即须继续。"},
-  whenTitle:"筛查时点",
-  when:["初步阶段（阶段 0）","文件中出现的每一个名称（阶段 2）","发出发运请求前，若最近一次筛查已超过 6 个月","加入交易的任何新主体","第三方付款人"]
-},
-escalation:{
-  title:"升级处理", eyebrow:"第 10 节 · 参考资料",
-  subtitle:"两条路径。二者性质不同，不得合并处理。",
-  trackA:{
-    title:"路径 A", sub:"疑似制裁匹配",
-    intro:"在任一网站出现匹配，或可能匹配，即使仅为部分匹配。",
-    steps:["交易立即停止。","以书面形式通知 KYC 合规负责人。","KYC 合规负责人以书面形式通知 Sanlorenzo SCP Unit：SCPUnit@sanlorenzoyacht.com。"],
-    mandatory:"此项并非可自由裁量 — SCP 明确要求如此。",
-    note:`<strong>经纪人不得告知客户，亦不得说明延误原因。</strong> 若客户追问，唯一可接受的回应是合规审查仍在进行中。切勿提及制裁、名单、匹配或任何姓名。`
-  },
-  trackB:{
-    title:"路径 B", sub:"复杂情形",
-    intro:"转交 KYC 合规负责人，由其决定继续推进、进一步索取资料，或引入意大利母公司法务团队。",
-    triggersTitle:"触发情形：",
-    triggers:["架构不透明或存在不必要的多层结构","代名股东、受托人或不记名股份","拒绝或不愿披露实益拥有人","提出由第三方付款","股权链无法追溯至自然人","客户陈述与文件内容不一致","登记船东或最终使用人与买方不同，且迟至后期才披露","任何在逻辑上说不通的情况"],
-    note:`经纪人只需记住一条规则：<strong>当有事情说不通时，不要自行解决，也不要与客户讨论。</strong>`
-  }
-},
-toolkit:{
-  title:"经纪人工具包", eyebrow:"第 11 节 · 参考资料",
-  subtitle:"四份可直接发送的模板。方括号中的栏位须在发送前填写完整。",
-  templates:[
-    {id:"t1", title:"文件索取函 — 个人买方",
-     subject:"完成您购船手续所需文件 — [船型／船体编号]",
-     body:`尊敬的 [姓名]：
-
-为完成提交船厂的档案，我们需要您提供两份文件：
-
-1. 护照复印件。
-2. 居住地址证明，须为三个月内由第三方出具 — 例如公用事业账单、显示您地址的银行对账单、租赁协议或政府签发的居住证明。自行声明恕不接受。
-
-以电子邮件发送普通复印件即可，无需办理认证。
-
-Sanlorenzo（圣劳伦佐）作为一家上市公司，已制定并实施《制裁合规计划》，其中规定了客户尽职调查及身份核实的相关程序。上述要求适用于 Sanlorenzo 集团旗下所有公司，其中包括 Simpson Marine。所有提供的文件均会被严格保密，并仅按照 Sanlorenzo 集团的相关程序用于核实用途。
-
-另有一项实务提示：请安排以合同所载主体名下的账户支付所有款项。若款项来自其他来源，我们须另行核查，将导致交船延误。
-
-恳请您于近日内提供上述文件 — 依据我们的内部程序，档案须在签约后 15 天内完成。`},
-    {id:"t2", title:"文件索取函 — 公司买方",
-     subject:"完成您购船手续所需文件 — [船型／船体编号]",
-     body:`尊敬的 [姓名]：
-
-为完成提交船厂的档案，我们需要记录购买方公司的股权结构。
-
-凡可从公开公司登记册取得的信息，我们将自行调取 — 该部分无需您费心。需要您提供的包括：
-
-1. [由注册代理人出具、日期在三个月以内的 Certificate of Incumbency]（适用于离岸公司）
-2. [追溯至个人层面的股权结构图，并附图中出现的每一家公司的登记册摘录或 Certificate of Incumbency]（适用于股东并非自然人的情形）
-3. 持有公司 25% 或以上股权者、以及实际控制公司者的护照复印件及居住地址证明。
-4. 购买方公司每一位董事的护照复印件及居住地址证明。
-
-地址证明须为三个月内由第三方出具 — 公用事业账单、显示地址的银行对账单、租赁协议或政府居住证明均可。以电子邮件发送普通复印件即可。
-
-Sanlorenzo（圣劳伦佐）作为一家上市公司，已制定并实施《制裁合规计划》，其中规定了客户尽职调查、身份核实及制裁筛查的相关程序。上述要求适用于 Sanlorenzo 集团旗下所有公司，其中包括 Simpson Marine。准确识别最终实益拥有人是该流程中的重要环节。所有文件均会被严格保密，并仅用于核实用途。
-
-亦请安排以合同所载公司名下的账户支付所有款项 — 由其他主体付款将触发另行核查，并导致交付延误。
-
-恳请您于近日内提供上述文件 — 依据我们的内部程序，档案须在签约后 15 天内完成。`},
-    {id:"t3", title:"信托架构",
-     subject:"",
-     lead:"当买方或股权链中的任一所有人为信托时使用本函。可直接作为索取函发出 — 其中已说明我们需要什么以及原因。",
-     body:`尊敬的 [姓名]：
-
-由于本次购买涉及信托架构，为完成核实程序，我们需要以下资料：
-
-该信托的信托契约（[信托名称]），须能够识别最终实益拥有人（UBO）；或者提供相关摘录、受托人证明书或其他同等法律确认文件，以充分识别与该信托相关的人员，包括委托人（settlor）、受托人（trustee）、任何保护人／监护人／执行监督人（protector / guardian / enforcer）、受益人或受益人类别，以及任何对该信托行使控制或影响力的人员。
-
-对于上述每一位相关人员，我们还需要其有效护照复印件及居住地址证明（例如近期水电费账单或银行对账单），以完成我们的核实程序。
-
-在信托架构下，我们必须超越企业架构图本身，进一步了解该信托背后的实际主体、谁可能对其行使控制或影响、谁可能从中受益，以及最终谁将使用或受益于该船只。这是一项标准的合规要求，并不意味着我们对本次交易存在任何疑虑。`},
-    {id:"t4", title:"简短催办",
-     subject:"", lead:"",
-     body:`尊敬的 [姓名]：关于 [船型] 所需文件，谨此提醒。我们需要完成提交船厂的档案，而档案未关闭前船只无法放行。如有任何我可以协助之处，请随时告知。`}
-  ]
-},
-records:{
-  title:"文件管理", eyebrow:"第 13 节 · 参考资料",
-  whereTitle:"文件的存放位置",
-  whereHtml:"所有收集的文件均存放于 Box，路径为：",
-  boxPath:"SA-Sales > SA-KYC",
-  folderTitle:"每一笔交易设一个文件夹，命名格式为：",
-  folderPattern:"YYYY MM KYC [Client Name]_[Boat model and hull number]",
-  folderBRTitle:"品牌代表（Brand Representative）的文件夹命名格式为：",
-  folderPatternBR:"YYYY MM KYC BR [Brand Representative name]",
-  folderNote:`其中 <strong>BR</strong> 即 Brand Representative。品牌代表再次接受筛查时，须<strong>新建一个文件夹</strong>，并在名称中标注新的日期 — 原文件夹保持不变，以便每次筛查的历史记录清晰可查。`,
-  registerNote:"KYC 登记表为共享于 Box 的 Excel 文件，用于跟踪每份档案的状态。",
-  retentionTitle:"保存期限",
-  retentionHtml:`<strong>5 年</strong>，依 SCP 要求。范围涵盖已执行的核查与筛查记录、合同文件副本、缔约前的往来函件（含电子形式）、税务文件，以及与已收款项相关的文件。`,
-  generatorTitle:"文件夹名称生成器",
-  generatorNote:"仅供参考 — 请务必在 Box 上实际创建文件夹，本工具不会代为创建。",
-  fields:{clientName:"客户姓名", boatModel:"船型／船体编号", isBR:"这是一位品牌代表（Brand Representative）", date:"交易月份"}
-},
-wizard:{
-  title:"文件清单向导", eyebrow:"工具",
-  subtitle:"回答有关买方的几个问题，即可获得准确的所需文件清单，并附来源与有效期。",
-  restart:"重新开始",
-  step1:{title:"1. 买方类型是？",
-    options:[
-      {id:"individual", title:"个人", sub:"以自然人本人名义购买"},
-      {id:"private", title:"私人公司", sub:"未在受监管市场上市"},
-      {id:"listed", title:"上市公司", sub:"于认可受监管市场上市"},
-      {id:"trust", title:"信托", sub:"买方为信托，或由信托持有"},
-      {id:"spv", title:"SPV／与买方不同的登记船东", sub:"特殊目的公司或独立的登记船东"}
-    ]},
-  step2Jurisdiction:{title:"2. 公司注册地为？", sub:"根据第 6 节，用于判断公开登记册是否已涵盖股东信息。"},
-  step2Individuals:{title:"签约公司的股东是否已经是自然人？",
-    yes:"是，股东为自然人", no:"否，一个或多个股东为公司（将需要股权结构图）"},
-  step3:{title:"3. 本次交易是否为以旧换新／折价换购？", sub:"指本次销售之前，二手船进入 Simpson Marine 所有权的情形。",
-    yes:"是，属于以旧换新", no:"否"},
-  step4:{title:"4. 本次销售对象是否为品牌代表（Brand Representative）？",
-    yes:"是", no:"否",
-    followup:"该品牌代表是否已在近 6 个月内接受筛查？", followupYes:"是，在 6 个月以内", followupNo:"否／不确定"},
-  resultsTitle:"文件清单",
-  resultsSub:"以下每一项均可追溯至指引第 7 节。",
-  contextNotesTitle:"背景提示",
-  tradeInNote:{type:"warn", html:"本次为以旧换新：须建立两份独立的 KYC 档案 — 一份针对将船只出售给 Simpson Marine 的一方，一份针对购入方。（第 2 节）"},
-  brandRepNote:{type:"rule", html:"向品牌代表销售：简化档案。须留存委任时的 KYC 确认文件。（第 2 节、第 4 节阶段 4）"},
-  brandRepStaleNote:{type:"danger", html:"最近一次筛查距今已超过 6 个月（或无法确认）：须在继续之前重新核验文件并重新执行筛查。（第 2 节、第 4 节阶段 4）"},
-  brandRepFreshNote:{type:"rule", html:"6 个月以内已完成筛查：现有档案已足够，无需重新核验。（第 2 节）"},
-  alwaysReminders:[
-    {type:"rule", html:"仅须记录签约公司的董事 — 中间控股公司的董事不在范围之内。（第 7 节）"},
-    {type:"rule", html:"股权结构图是路线图，而非证据 — 图中每一家公司仍须有其自身的文件佐证。（第 7 节）"}
-  ],
-  registryFirstNote:"先查登记册，后问客户（第 6 节）：后台须一律先尝试公开登记册，再向客户索取。",
-  docs:{
-    passport:{name:"有效护照", proves:"身份", validity:"—"},
-    proofResidence:{name:"居住地址证明", proves:"当前居住地址", from:"客户", validity:"最长三个月，第三方出具，不接受自行声明"},
-    registryDoc:{name:"登记册摘录", proves:"现任董事及股东与其持股比例，并证明公司存续", from:"登记册（后台调取）", validity:"因司法管辖区而异 — 见第 6 节"},
-    coi:{name:"Certificate of Incumbency（在职证明书）", proves:"现任董事、高级职员、成员、注册办事处、良好存续状态 — 反映出具之日的状况", from:"客户（经注册代理人出具）", validity:"最长三个月"},
-    chart:{name:"股权结构图", proves:"至个人所有人层级的股权结构图", from:"客户", validity:"—"},
-    intermediateDocs:{name:"每一家中间公司的登记册摘录或 Certificate of Incumbency", proves:"证明通往须识别所有人的链条上每一家公司的存续，并在可获得的情况下证明其股权", from:"可取得时来自登记册，否则来自客户", validity:"CoI 最长三个月"},
-    directorId:{name:"签约公司每一位董事的身份文件及住址证明", proves:"签约公司董事的身份", from:"客户", validity:"住址证明最长三个月"},
-    ownerId:{name:"持股 25% 以上／实际控制权者的护照及住址证明", proves:"实益拥有人的身份", from:"客户", validity:"住址证明最长三个月"},
-    listingEvidence:{name:"上市及所在市场的证明", proves:"证明公司于认可受监管市场上市", from:"客户", validity:"—"},
-    listedDirectorId:{name:"仅需签署董事的身份文件", proves:"签署董事的身份", from:"客户", validity:"—"},
-    trustDeed:{name:"信托契约（或摘录／受托人证明书／同等文件）", proves:"识别委托人、受托人、保护人／监护人／执行监督人、受益人或类别、任何控制或影响人员", from:"客户", validity:"—"},
-    trustPersonsId:{name:"与该信托相关每一位人员的护照及住址证明", proves:"委托人、受托人、保护人、受益人、控制人的身份", from:"客户", validity:"住址证明最长三个月"},
-    spvDocs:{name:"该 SPV 的全套公司文件", proves:"按私人公司清单要求", from:"登记册／客户", validity:"见私人公司清单"},
-    spvLink:{name:"SPV 与买方之间关系的书面证明", proves:"SPV 与合同买方之间的关系", from:"客户", validity:"—"},
-    spvBoth:{name:"对两个主体均完成完整 KYC", proves:"—", from:"—", validity:"SPV 与买方均须完成"}
-  }
-},
-calculator:{
-  title:"25% / 50% 门槛计算器", eyebrow:"工具",
-  subtitle:"构建股权链，标记受制裁／被列名主体，即可分别查看两个门槛的计算结果 — 依 SCP 要求，二者分开计算。",
-  intro:"在买方之下添加所有人，并在每一所有人之下继续添加，以重建整条股权链。为每一层级输入其占上一级实体的持股比例。",
-  addRootPrompt:"添加买方的直接所有人以开始。",
-  panel25:{title:"25% — 识别门槛", note:"沿股权链按乘积计算。实际持股达到或超过 25% 时，须收集护照及住址证明。低于 25% 时，该分支可停止追溯。"},
-  panel50:{title:"50% — OFAC 阻断规则", note:"并非按乘积计算 — 而是逐级传导，同一层级中被列名主体的持股须合并计算。当某公司被列名／已阻断主体的合计持股达到 50% 时，该公司即受阻断。"},
-  verdictAbove:"高于门槛 — 须索取护照及住址证明",
-  verdictBelow:"低于门槛 — 该分支无需继续识别",
-  verdictBlocked:"已阻断 — 被列名主体直接或经由传导持有 50% 或以上",
-  verdictFlag:"被列名主体持股介于 25% 至 50% 之间 — 不构成自动阻断，但交易须暂停并转交 KYC 合规负责人",
-  verdictClear:"该分支无被列名主体",
-  officerNote:"本计算器用于辅助决策，并非最终决定依据 — 存疑案例一律转交 KYC 合规负责人。",
-  resetBtn:"重置股权链"
-},
-roleTimeline:{
-  title:"角色视图与时间线", eyebrow:"工具",
-  subtitle:"在上方选择您的角色，即可筛选 RACI 表并在全站高亮显示您的职责。点击下方任一阶段查看详情。",
-  timelineTitle:"15 天时限",
-  timelineNote:"第 0 天为合同日期（第二个签名之日）。天数按日历日计算。点击任一阶段可在下方展开详情。",
-  markers:{phase0:"第 0 天之前", phase1:"第 0 天 — 签约", phase2:"第 0–15 天 · 第 5／10／13 天提醒，第 15 天升级", phase3:"完成时", phase4:"直至交船 · 若筛查超过 6 个月须重新筛查"},
-  raciTitle:"RACI — 按角色筛选",
-  detailTitle:"阶段详情"
-}
-}/*END_DATA_ZH*/ };
+} };
 
 /* ============================================================
    STATE
@@ -1321,7 +932,6 @@ roleTimeline:{
 const RID = (function(){ let n=0; return ()=> 'n'+(++n)+'_'+Math.random().toString(36).slice(2,7); })();
 
 const state = {
-  lang: localStorage.getItem('kyc_lang') || 'en',
   role: localStorage.getItem('kyc_role') || 'all',
   route: 'home',
   routeParam: null,
@@ -1331,15 +941,15 @@ const state = {
   faqQuery:'', faqOpen:{},
   raciOnlyRole:false,
   tlOpenPhase:null,
-  phasesOpen:{}
+  phasesOpen:{},
+  toolkitLang:'en'
 };
 function safeParse(s,d){ try{ return s?JSON.parse(s):d; }catch(e){ return d; } }
 function saveState(){
-  localStorage.setItem('kyc_lang', state.lang);
   localStorage.setItem('kyc_role', state.role);
   localStorage.setItem('kyc_filters', JSON.stringify(state.filters));
 }
-function T(){ return DATA[state.lang]; }
+function T(){ return DATA.en; }
 function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function nl2br(s){ return esc(s).replace(/\n/g,'<br>'); }
 
@@ -1447,9 +1057,6 @@ function renderTopControls(){
   document.getElementById('brandT1').textContent = t.ui.brandT1;
   document.getElementById('brandT2').textContent = t.ui.brandT2;
   document.getElementById('globalSearch').placeholder = t.ui.searchPlaceholder;
-  document.getElementById('btnLangEN').classList.toggle('active', state.lang==='en');
-  document.getElementById('btnLangZH').classList.toggle('active', state.lang==='zh');
-  document.documentElement.lang = state.lang;
 }
 
 /* ============================================================
@@ -1560,9 +1167,13 @@ function renderFaq(){
     </div>
     ${calloutHtml(k.note)}`;
   const kycReqSearchText = (k.alwaysRows.map(r=>r.situation+' '+r.requirement).join(' ') + ' ' + k.notRequiredText + ' ' + stripTags(k.note.html)).toLowerCase();
+  const por = t.checklists.proofOfResidence;
+  const porHtml = `<p><strong>${esc(por.title)}</strong> ${esc(por.lead)}</p><ul style="margin-top:8px;">${por.acceptable.map(a=>`<li>${esc(a)}</li>`).join('')}</ul>`;
   const allItems = [
     { key:'faq-kyc-required', q:k.question, bodyHtml:kycReqHtml, searchText:k.question.toLowerCase()+' '+kycReqSearchText },
-    ...d.items.map((it,i)=>({ key:'faq'+i, q:it.q, bodyHtml:`<p>${esc(it.a)}</p>`, searchText:(it.q+' '+it.a).toLowerCase() }))
+    ...d.items.map((it,i)=>({ key:'faq'+i, q:it.q,
+      bodyHtml: it.id==='proofOfResidence' ? porHtml : `<p>${esc(it.a)}</p>`,
+      searchText: it.id==='proofOfResidence' ? (it.q+' '+it.a+' '+por.acceptable.join(' ')).toLowerCase() : (it.q+' '+it.a).toLowerCase() }))
   ];
   const items = allItems.filter(it => !q || it.searchText.includes(q));
   return `
@@ -1583,7 +1194,7 @@ function renderFaq(){
 }
 
 /* ============================================================
-   RACI (Section 3)
+   RACI
    ============================================================ */
 function renderRaci(){
   const d = T().raci, t = T();
@@ -1619,7 +1230,7 @@ function renderRaci(){
 }
 
 /* ============================================================
-   PHASES (Section 4)
+   PHASES
    ============================================================ */
 function renderPhases(){
   const d = T().phases;
@@ -1639,7 +1250,7 @@ function renderPhases(){
 }
 
 /* ============================================================
-   THRESHOLDS (Section 5)
+   THRESHOLDS
    ============================================================ */
 function renderThresholds(){
   const d = T().thresholds, t = T();
@@ -1661,7 +1272,7 @@ function renderThresholds(){
 }
 
 /* ============================================================
-   REGISTRIES (Section 6)
+   REGISTRIES
    ============================================================ */
 function renderRegistries(){
   const d = T().registries;
@@ -1695,7 +1306,7 @@ function renderRegistries(){
 }
 
 /* ============================================================
-   CHECKLISTS (Section 7)
+   CHECKLISTS
    ============================================================ */
 function renderChecklists(){
   const d = T().checklists, t = T();
@@ -1725,12 +1336,6 @@ function renderChecklists(){
   </div>
 
   <div class="card">
-    <div class="section-title">${esc(d.docTableTitle)}</div>
-    <div class="table-wrap"><table><thead><tr><th>Document</th><th>${esc(t.ui.common.provesLabel)}</th><th>When we need it</th></tr></thead>
-    <tbody>${d.docTable.map(r=>`<tr><td><strong>${esc(r.doc)}</strong>${r.sub?`<div class="small muted">${esc(r.sub)}</div>`:''}</td><td>${esc(r.proves)}</td><td>${esc(r.when)}</td></tr>`).join('')}</tbody></table></div>
-  </div>
-
-  <div class="card">
     <div class="section-title">${esc(d.listedTitle)}</div>
     <ul>${d.listedItems.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>
     <p class="muted small" style="margin-top:8px;">${esc(d.listedNote)}</p>
@@ -1746,11 +1351,17 @@ function renderChecklists(){
     <div class="section-title">${esc(d.spvTitle)}</div>
     <ul>${d.spvItems.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>
   </div>
+
+  <div class="card">
+    <div class="section-title">${esc(d.docTableTitle)}</div>
+    <div class="table-wrap"><table><thead><tr><th>Document</th><th>${esc(t.ui.common.provesLabel)}</th><th>When we need it</th></tr></thead>
+    <tbody>${d.docTable.map(r=>`<tr><td><strong>${esc(r.doc)}</strong>${r.sub?`<div class="small muted">${esc(r.sub)}</div>`:''}</td><td>${esc(r.proves)}</td><td>${esc(r.when)}</td></tr>`).join('')}</tbody></table></div>
+  </div>
   `;
 }
 
 /* ============================================================
-   PAYMENTS (Section 8)
+   PAYMENTS
    ============================================================ */
 function renderPayments(){
   const d = T().payments;
@@ -1766,7 +1377,7 @@ function renderPayments(){
 }
 
 /* ============================================================
-   SCREENING (Section 9)
+   SCREENING
    ============================================================ */
 function renderScreening(){
   const d = T().screening;
@@ -1794,7 +1405,7 @@ function renderScreening(){
 }
 
 /* ============================================================
-   ESCALATION (Section 10)
+   ESCALATION
    ============================================================ */
 function renderEscalation(){
   const d = T().escalation;
@@ -1822,7 +1433,7 @@ function renderEscalation(){
 }
 
 /* ============================================================
-   TOOLKIT (Section 11)
+   TOOLKIT
    ============================================================ */
 function highlightPlaceholders(text){
   return esc(text).replace(/\[([^\]]+)\]/g, '<span class="field-placeholder">[$1]</span>');
@@ -1831,21 +1442,27 @@ function renderToolkit(){
   const d = T().toolkit, t = T();
   return `
   ${pageHead(d.eyebrow, d.title, d.subtitle)}
-  ${d.templates.map(tpl=>`
+  <div class="langtoggle" style="margin-bottom:16px;">
+    <button data-action="toolkit-lang" data-lang="en" class="${state.toolkitLang==='en'?'active':''}">EN</button>
+    <button data-action="toolkit-lang" data-lang="zh" class="${state.toolkitLang==='zh'?'active':''}">中文</button>
+  </div>
+  ${d.templates.map(tpl=>{
+    const body = state.toolkitLang==='zh' && tpl.bodyZh ? tpl.bodyZh : tpl.body;
+    return `
     <div class="template-card role-block" data-role="broker">
       <div class="template-head">
         <h3>${roleBadge('broker')} ${esc(tpl.title)}</h3>
         <button class="btn sm copy-btn" data-action="copy" data-tplid="${tpl.id}">${icon('doc')} ${esc(t.ui.common.copy)}</button>
       </div>
-      <div class="template-body">${tpl.lead?`<p class="muted small" style="margin-bottom:12px;">${esc(tpl.lead)}</p>`:''}${tpl.subject?`<div class="tpl-subject">Subject: ${highlightPlaceholders(tpl.subject)}</div>`:''}${highlightPlaceholders(tpl.body)}</div>
-      <textarea id="tplraw-${tpl.id}" style="position:absolute;left:-9999px;">${esc((tpl.subject?('Subject: '+tpl.subject+'\\n\\n'):'')+tpl.body)}</textarea>
+      <div class="template-body">${tpl.lead?`<p class="muted small" style="margin-bottom:12px;">${esc(tpl.lead)}</p>`:''}${highlightPlaceholders(body)}</div>
+      <textarea id="tplraw-${tpl.id}" style="position:absolute;left:-9999px;">${esc(body)}</textarea>
     </div>
-  `).join('')}
+  `;}).join('')}
   `;
 }
 
 /* ============================================================
-   RECORDS (Section 13)
+   RECORDS
    ============================================================ */
 function renderRecords(){
   const d = T().records, t = T();
@@ -1903,7 +1520,7 @@ function mountRecordsGenerator(){
 }
 
 /* ============================================================
-   WIZARD (Section 4.1 / §4.1 of brief)
+   WIZARD
    ============================================================ */
 function renderWizard(){
   const d = T().wizard, t = T();
@@ -2059,17 +1676,16 @@ function renderWizardResults(){
     </div>`).join('')}
   </div>
   ${notes.length?`<div class="card"><div class="section-title">${esc(d.contextNotesTitle)}</div><div style="display:flex;flex-direction:column;gap:8px;">${notes.map(n=>n.type==='plain'?`<p class="muted small">${n.html}</p>`:calloutHtml(n)).join('')}</div></div>`:''}
-  <div class="card">
+  ${a.buyerType==='private'?`<div class="card">
     <div class="section-title">${esc(t.ui.common.reminderTitle)}</div>
     <div style="display:flex;flex-direction:column;gap:8px;">${d.alwaysReminders.map(calloutHtml).join('')}</div>
     <p class="small muted" style="margin-top:12px;">${esc(t.ui.common.officerReminder)}</p>
-  </div>
-  <button class="btn" data-action="print">${icon('doc')} ${esc(t.ui.printBtn)}</button>
+  </div>`:''}
   `;
 }
 
 /* ============================================================
-   CALCULATOR (Section 4.2 / §4.2 of brief)
+   CALCULATOR
    25% = multiplicative down the chain (independent)
    50% = cascades level by level, listed stakes summed per level (independent)
    ============================================================ */
@@ -2263,7 +1879,7 @@ function mountCalculator(){ /* dynamic container already rendered inline; listen
 function calcReset(){ state.calc = { root: { id:'root', name:null, type:'root', pct:100, listed:false, children:[], effectivePct:100 } }; render(); }
 
 /* ============================================================
-   ROLE VIEW & TIMELINE (Section 4.3 / §4.3 of brief)
+   ROLE VIEW & TIMELINE
    ============================================================ */
 function renderRaciTableOnly(){
   const d = T().raci, t = T();
@@ -2318,10 +1934,10 @@ function renderRoleTimeline(){
 /* ============================================================
    GLOBAL SEARCH
    ============================================================ */
-const _searchIdxCache = {};
+let _searchIdxCache = null;
 function stripTags(html){ return String(html||'').replace(/<[^>]+>/g,' ').replace(/&nbsp;/g,' ').replace(/\s+/g,' ').trim(); }
-function buildSearchIndex(lang){
-  const d = DATA[lang];
+function buildSearchIndex(){
+  const d = DATA.en;
   const idx = [];
   const push = (route, title, text, param) => idx.push({ route, title, text: stripTags(text), param: param||'' });
   push('home', d.home.title, d.home.body.join(' ') + ' ' + d.home.callouts.map(c=>c.html).join(' '));
@@ -2356,8 +1972,8 @@ function buildSearchIndex(lang){
   return idx;
 }
 function getSearchIndex(){
-  if(!_searchIdxCache[state.lang]) _searchIdxCache[state.lang] = buildSearchIndex(state.lang);
-  return _searchIdxCache[state.lang];
+  if(!_searchIdxCache) _searchIdxCache = buildSearchIndex();
+  return _searchIdxCache;
 }
 function escapeRegex(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
 function closeSearchResults(){ const box=document.getElementById('searchResults'); if(box) box.classList.remove('open'); }
@@ -2416,16 +2032,12 @@ function copyTemplate(id, btn){
 }
 
 /* ============================================================
-   LANGUAGE TOGGLE (preserves route + scroll position)
+   BROKER TOOLKIT LANGUAGE TOGGLE
    ============================================================ */
-function setLang(lang){
-  if(state.lang === lang) return;
-  const wrap = document.querySelector('.main-wrap');
-  const scrollTop = wrap ? wrap.scrollTop : 0;
-  state.lang = lang;
-  saveState();
+function setToolkitLang(lang){
+  if(state.toolkitLang === lang) return;
+  state.toolkitLang = lang;
   render();
-  requestAnimationFrame(()=>{ const w=document.querySelector('.main-wrap'); if(w) w.scrollTop = scrollTop; });
 }
 
 /* ============================================================
@@ -2457,7 +2069,7 @@ function onGlobalClick(e){
   else if(a==='calc-reset'){ calcReset(); }
   else if(a==='tl-open'){ const id=el.dataset.id; state.tlOpenPhase = state.tlOpenPhase===id?null:id; render(); }
   else if(a==='copy'){ copyTemplate(el.dataset.tplid, el); }
-  else if(a==='print'){ window.print(); }
+  else if(a==='toolkit-lang'){ setToolkitLang(el.dataset.lang); }
 }
 function onGlobalChange(e){
   const el = e.target;
@@ -2510,9 +2122,6 @@ function init(){
     document.getElementById('sidebarScrim').classList.toggle('open');
   });
   document.getElementById('sidebarScrim').addEventListener('click', closeMobileSidebar);
-  document.getElementById('langToggle').addEventListener('click', e=>{
-    const b = e.target.closest('button[data-lang]'); if(b) setLang(b.dataset.lang);
-  });
   document.getElementById('globalSearch').addEventListener('input', e=> handleSearchInput(e.target.value));
   document.getElementById('globalSearch').addEventListener('focus', e=> { if(e.target.value) handleSearchInput(e.target.value); });
 
