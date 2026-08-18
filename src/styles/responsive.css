@@ -57,6 +57,17 @@
   .page-title {
     font-size: 22px;
   }
+  /* iOS Safari zooms the whole page in on focus when a form field's font-size
+     is below 16px, and doesn't reliably zoom back out — especially right after
+     the password gate swaps the DOM. Force every field to >=16px on mobile. */
+  input,
+  select,
+  textarea,
+  .faq-search,
+  .pillselect select,
+  .topbar-search input {
+    font-size: 16px;
+  }
 }
 @media (max-width: 600px) {
   .node-row input[type='text'] {
