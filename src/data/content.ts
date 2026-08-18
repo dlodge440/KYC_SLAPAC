@@ -69,7 +69,7 @@ export const content: SiteContent = {
   home: {
     eyebrow: 'Introduction',
     title: 'KYC & Sanctions Compliance Guidelines',
-    subtitle: 'Simpson Marine — New Boat Sales',
+    subtitle: 'Simpson Marine Ltd.',
     issuedLine:
       'Issued under the Sanlorenzo S.p.A. Sanctions Compliance Program (SCP), approved by the Board of Directors on 15 May 2025.',
     version: 'Version 1.0',
@@ -81,11 +81,11 @@ export const content: SiteContent = {
     ],
     callouts: [
       {
-        type: 'danger',
+        type: 'rule',
         html: `<strong>The SCP is an internal document and must never be shared outside the company</strong> — not with clients, not with their advisers, not with counterparties. It is available to Simpson Marine staff in the shared Box folder.`,
       },
       {
-        type: 'rule',
+        type: 'danger',
         html: `<strong>The one rule nobody may forget:</strong> a boat is never shipped from Italy and never handed over to a client until the KYC file is complete and signed off.`,
       },
     ],
@@ -227,62 +227,108 @@ export const content: SiteContent = {
   phases: {
     title: 'The process, phase by phase',
     eyebrow: 'Guide',
-    subtitle: 'Five phases, a 15-day clock from signature, and monitoring that continues until handover.',
+    subtitle: 'Five phases, a 20-day clock from signature, and monitoring that continues until handover.',
     list: [
       {
         id: 'phase0',
         name: 'Phase 0',
         label: 'Preliminary screening',
         timing: 'Before signature',
-        html: `<p>Triggered as soon as a negotiation moves towards an Order Contract.</p>
-     <div class="role-block" data-role="broker"><span class="badge role-broker">Broker</span> collects and passes to the back office:</div>
-     <ul><li>full name, nationality, country of residence</li><li>if a company is buying: company name, country of incorporation, and the expected ultimate beneficial owner</li></ul>
-     <div class="role-block" data-role="backoffice"><span class="badge role-backoffice">Back office</span> runs those names through the two portals, saves the result as a PDF or screenshot bearing the date and the name of the person who ran the search, and opens the entry in the KYC register.</div>
-     <ul><li><strong>Clear</strong> → proceed to signature.</li><li><strong>Possible match</strong> → stop immediately, escalate, and say nothing to the client.</li></ul>
-     <p class="muted small">Turnaround: 48 hours. This step is what keeps us aligned with the SCP, which requires due diligence <em>before</em> an agreement is signed.</p>`,
+        html: `
+          <p>Triggered as soon as a negotiation moves towards an Order Contract.</p>
+
+          <div class="role-block" data-role="broker">
+            <span class="badge role-broker">Broker</span> collects and passes to the back office:
+          </div>
+          <ul>
+            <li>full name, nationality, country of residence</li>
+            <li>if a company is buying: company name, country of incorporation, and the expected ultimate beneficial owner</li>
+          </ul>
+
+          <div class="role-block" data-role="backoffice">
+            <span class="badge role-backoffice">Back office</span> runs those names through the two portals, saves the result as a PDF or screenshot (see the page "Files Management") and opens the entry in the KYC register (shared Excel file, as of now).
+          </div>
+          <ul>
+            <li><strong>Clear</strong> → proceed to signature.</li>
+            <li><strong>Possible match</strong> → stop immediately, escalate, and say nothing to the client.</li>
+          </ul>
+
+          <p class="muted small">Turnaround: 48 hours. This step is what keeps us aligned with the SCP, which requires due diligence <em>before</em> an agreement is signed.</p>
+        `,
       },
       {
         id: 'phase1',
         name: 'Phase 1',
         label: 'Signature',
         timing: 'Day 0',
-        html: `<p>Clause 14.1 of the Standard Terms and Conditions of Sale must be <strong>completed with the name of the ultimate beneficial owner</strong>. The <span class="field-placeholder">[●]</span> field never goes out blank.</p>
-     <p>The Contract Date — the date of the second signature — is Day 0 of the 15-day clock. Days are calendar days, weekends and public holidays included.</p>
-     <div class="role-block" data-role="broker"><span class="badge role-broker">Broker</span> — at signature the broker tells the client, in plain words:</div>
-     <div class="callout">"Please make all payments from the account of the entity that has signed this contract. If funds arrive from anyone else, we are required to run a separate verification, and that could delay your boat."</div>
-     <div class="role-block" data-role="backoffice"><span class="badge role-backoffice">Back office</span> opens the file on Box.</div>`,
+        html: `
+          <p>Clause 14.1 of the Standard Terms and Conditions of Sale must be <strong>completed with the name of the ultimate beneficial owner</strong>. The <span class="field-placeholder">[●]</span> field never goes out blank.</p>
+
+          <p>From the contract date, we have 20 days to complete all the KYC checks and gather the necessary supporting documents.</p>
+
+          <div class="role-block" data-role="broker">
+            <span class="badge role-broker">Broker</span> — at signature the broker advises the client to:
+          </div>
+          <br>
+          <div class="callout warn">"Make all payments from the account of the entity that has signed this contract. If funds arrive from anyone else, we are required to run a separate KYC verification."</div>
+        `,
       },
       {
         id: 'phase2',
         name: 'Phase 2',
         label: 'Document collection',
-        timing: 'Days 0–15',
-        html: `<div class="role-block" data-role="broker"><span class="badge role-broker">Broker</span> sends the document request using the standard template in the Broker toolkit.</div>
-     <div class="role-block" data-role="backoffice"><span class="badge role-backoffice">Back office</span>:</div>
-     <ol><li>tries the <strong>public registry first</strong> (see Registries by jurisdiction) and asks the client only for what the registry does not provide</li>
-     <li>checks that every document received is complete, legible and within validity</li>
-     <li>completes <strong>Annex 2</strong> of the SCP — the OFAC Identification and Risk Assessment Form</li>
-     <li>re-runs the screening on <strong>every name that emerged from the documents</strong>, not only the ones declared in Phase 0: actual beneficial owners, legal representative, registered owner</li></ol>
-     <p><strong>Reminder schedule:</strong> Day 5 first reminder · Day 10 second reminder · Day 13 alert to the broker, copied to the KYC Compliance Officer · <strong>Day 15, file not complete → automatic escalation.</strong></p>`,
+        timing: 'Days 0–20',
+        html: `
+          <div class="role-block" data-role="broker">
+            <span class="badge role-broker">Broker</span> sends the document request using the standard template in the Broker toolkit.
+          </div>
+          <br>
+          <div class="role-block" data-role="backoffice">
+            <span class="badge role-backoffice">Back office</span>:
+          </div>
+          <ol>
+            <li>tries the <strong>public registry first</strong> (see Registries by jurisdiction) and asks the client only for what the registry does not provide</li>
+            <li>checks that every document received is complete, legible and within validity</li>
+            <li>completes <strong>Annex 2</strong> of the SCP — the OFAC Identification and Risk Assessment Form</li>
+            <li>re-runs the screening on <strong>every name that emerged from the documents</strong>, not only the ones declared in Phase 0: actual beneficial owners, legal representative, registered owner</li>
+          </ol>
+
+          <p><strong>Reminder schedule:</strong> Day 5 first reminder · Day 10 second reminder · Day 13 alert to the broker, copied to the KYC Compliance Officer · <strong>Day 15, file not complete → automatic escalation.</strong></p>
+        `,
       },
       {
         id: 'phase3',
         name: 'Phase 3',
         label: 'Completion & sign-off',
         timing: '—',
-        html: `<div class="role-block" data-role="backoffice"><span class="badge role-backoffice">Back office</span> assembles the complete file: signed Annex 2, all documents, screening evidence, copy of the contract, authorised payer details.</div>
-     <div class="role-block" data-role="cso"><span class="badge role-cso">CSO + Assistant</span> — the file goes digitally to the CSO's assistant, the CSO signs it off, and from there it is transmitted to the shipyard in Italy.</div>
-     <p>The file is now <strong>closed, but not frozen.</strong></p>`,
+        html: `
+          <div class="role-block" data-role="backoffice">
+            <span class="badge role-backoffice">Back office</span> assembles the complete file: signed Annex 2, all documents, screening evidence, copy of the contract, authorised payer details.
+          </div>
+          <br>
+          <div class="role-block" data-role="cso">
+            <span class="badge role-cso">CSO + Assistant</span> — the file goes digitally to the CSO's assistant, the CSO signs it off. No need to transmit the files to the shipyard in Italy.
+          </div>
+
+          <p>The file is now <strong>closed, but not frozen.</strong></p>
+        `,
       },
       {
         id: 'phase4',
         name: 'Phase 4',
         label: 'Ongoing monitoring',
         timing: 'Until handover',
-        html: `<p>Three live controls run from sign-off to handover:</p>
-     <div class="role-block" data-role="finance"><span class="badge role-finance">Finance</span> checks every payment against the authorised payer (see Payments)</div>
-     <p><strong>Re-screening</strong> is mandatory if the last screening is more than <strong>6 months old</strong> at the time the shipping request goes to Italy. Documents are already on file — this is only a re-run of the names through the two portals.</p>
-     <p><strong>Any change of beneficial owner, or any assignment of the contract</strong>, reopens the file. Clause 14.2 of the Standard Terms and Conditions of Sale obliges the client to inform us of a change of beneficial owner; clause 12.1 of the same terms gives us the right to refuse consent to an assignment, and we use it.</p>`,
+        html: `
+          <p>Three live controls run from sign-off to handover:</p>
+
+          <div class="role-block" data-role="finance">
+            <span class="badge role-finance">Finance</span> checks every payment against the authorised payer (see Payments)
+          </div>
+
+          <p><strong>Re-screening</strong> is mandatory if the last screening is more than <strong>6 months old</strong> at the time the shipping request goes to Italy. Documents are already on file — this is only a re-run of the names through the two portals.</p>
+
+          <p><strong>Any change of beneficial owner, or any assignment of the contract</strong>, reopens the file. Clause 14.2 of the Standard Terms and Conditions of Sale obliges the client to inform us of a change of beneficial owner; clause 12.1 of the same terms gives us the right to refuse consent to an assignment, and we use it.</p>
+        `,
         callout: { type: 'danger', html: 'No complete KYC file → no shipping request to Italy → no handover.' },
       },
     ],
