@@ -279,6 +279,10 @@ export const content: SiteContent = {
         label: 'Document collection',
         timing: 'Days 0–20',
         html: `
+          <div class="role-block" data-role="backoffice">
+            <span class="badge role-backoffice">Back office</span> tries the <strong>public registry first</strong> (see Registries by jurisdiction) and asks the Broker only for what the registry does not provide
+          </div>
+          <br>
           <div class="role-block" data-role="broker">
             <span class="badge role-broker">Broker</span> sends the document request using the standard template in the Broker toolkit.
           </div>
@@ -287,27 +291,26 @@ export const content: SiteContent = {
             <span class="badge role-backoffice">Back office</span>:
           </div>
           <ol>
-            <li>tries the <strong>public registry first</strong> (see Registries by jurisdiction) and asks the client only for what the registry does not provide</li>
             <li>checks that every document received is complete, legible and within validity</li>
-            <li>completes <strong>Annex 2</strong> of the SCP — the OFAC Identification and Risk Assessment Form</li>
             <li>re-runs the screening on <strong>every name that emerged from the documents</strong>, not only the ones declared in Phase 0: actual beneficial owners, legal representative, registered owner</li>
+            <li>completes the Excel file containing the details of the sceening. Box: KYC folder... > 99_Useful Files > KYC Overview [Template].xlsx</li>
+            <li>completes the standrd Word template provided by Sanlorenzo. <strong>Annex 2</strong> of the SCP — the OFAC Identification and Risk Assessment Form. </li>
+            <li>updates the overall KYC progress file. Box: KYC folder... > KYC Status Update.xlsx</li>
           </ol>
-
-          <p><strong>Reminder schedule:</strong> Day 5 first reminder · Day 10 second reminder · Day 13 alert to the broker, copied to the KYC Compliance Officer · <strong>Day 15, file not complete → automatic escalation.</strong></p>
         `,
       },
       {
         id: 'phase3',
         name: 'Phase 3',
         label: 'Completion & sign-off',
-        timing: '—',
+        timing: 'No later than Day 20',
         html: `
           <div class="role-block" data-role="backoffice">
-            <span class="badge role-backoffice">Back office</span> assembles the complete file: signed Annex 2, all documents, screening evidence, copy of the contract, authorised payer details.
+            <span class="badge role-backoffice">Back office</span> assembles all files and sends them digitally (link) to the Sales Administration Manager.
           </div>
           <br>
           <div class="role-block" data-role="cso">
-            <span class="badge role-cso">CSO + Assistant</span> — the file goes digitally to the CSO's assistant, the CSO signs it off. No need to transmit the files to the shipyard in Italy.
+            <span class="badge role-cso">CSO + Sales Admin Manager</span> — the CSO signs it off. No need to transmit the files to the shipyard in Italy. The signed documents shall go in the specifc KYC folder created in the privous steps by the Back Office.
           </div>
 
           <p>The file is now <strong>closed, but not frozen.</strong></p>
@@ -322,26 +325,26 @@ export const content: SiteContent = {
           <p>Three live controls run from sign-off to handover:</p>
 
           <div class="role-block" data-role="finance">
-            <span class="badge role-finance">Finance</span> checks every payment against the authorised payer (see Payments)
+            <span class="badge role-finance">Finance</span> checks every payment against the authorised payer (see Payments). Any mismatch is flagged to the broker and back office and triggers a new KYC check.
           </div>
 
           <p><strong>Re-screening</strong> is mandatory if the last screening is more than <strong>6 months old</strong> at the time the shipping request goes to Italy. Documents are already on file — this is only a re-run of the names through the two portals.</p>
 
           <p><strong>Any change of beneficial owner, or any assignment of the contract</strong>, reopens the file. Clause 14.2 of the Standard Terms and Conditions of Sale obliges the client to inform us of a change of beneficial owner; clause 12.1 of the same terms gives us the right to refuse consent to an assignment, and we use it.</p>
         `,
-        callout: { type: 'danger', html: 'No complete KYC file → no shipping request to Italy → no handover.' },
+        callout: { type: 'danger', html: 'No complete KYC file → no shipping from Italy → no handover.' },
       },
     ],
   },
   thresholds: {
     title: 'Identifying the Ultimate Beneficial Owner (UBO)',
     eyebrow: 'Reference',
-    subtitle: 'Two thresholds, two different purposes. Do not confuse them.',
+    subtitle: 'Two thresholds, two different purposes.',
     t25: {
       title: '25% — the identification threshold',
       body: [`This tells us <strong>how far down the chain we dig</strong>. We collect identity documents for:`],
       list: [
-        `anyone holding <strong>25% or more</strong> of the buying company, following the chain through intermediate companies down to natural persons`,
+        `anyone holding <strong>25% or more of the buying company</strong>, following the chain through intermediate companies down to natural persons`,
         `anyone exercising <strong>control in fact</strong> even below 25% — special voting rights, veto rights, the power to appoint or remove directors`,
         `if nobody reaches 25%, the <strong>senior managing official</strong> or the directors`,
       ],
@@ -368,7 +371,7 @@ export const content: SiteContent = {
     eyebrow: 'Reference',
     subtitle:
       'Public registries often hand us, in a single document and for a few dollars, everything we would otherwise have to extract from the client. The back office always tries the registry first.',
-    columns: ['Jurisdiction', 'What we can obtain ourselves', 'Directors + shareholders?'],
+    columns: ['Jurisdiction', 'What are the public documents available?', 'Do they contain all the information we need?'],
     rows: [
       {
         id: 'hk',
@@ -395,34 +398,34 @@ export const content: SiteContent = {
         id: 'my',
         jurisdiction: 'Malaysia',
         obtainable: 'SSM e-Info, requires a prepaid account',
-        coverage: 'Partial — directors yes, shareholders case by case',
+        coverage: 'Directors yes, shareholders depends case by case',
         level: 'partial',
       },
       {
         id: 'id',
         jurisdiction: 'Indonesia',
         obtainable: 'AHU Online, basic corporate data',
-        coverage: 'No — ownership comes from the Akta, which the client must provide',
+        coverage: 'The ownership structure comes from the Akta, which  shall be provided by the client',
         level: 'no',
       },
       {
         id: 'other',
         jurisdiction: 'Taiwan, China, Vietnam, Philippines',
         obtainable: 'Coverage is inconsistent',
-        coverage: 'Request from the client',
+        coverage: 'Client shall be involved',
         level: 'no',
       },
       {
         id: 'offshore',
         jurisdiction: 'Offshore — BVI, Cayman, Marshall Islands, Seychelles, Panama, Belize',
-        obtainable: 'Existence and standing of the company only',
-        coverage: 'No, in any case',
+        obtainable: 'None',
+        coverage: 'Client shall be involved',
         level: 'no',
       },
     ],
     warningsTitle: 'Three warnings',
     warnings: [
-      `<strong>Offshore registries do not publish ownership by design.</strong> The register of members sits with the registered agent. In the BVI it is filed with the Registrar but on a private basis; in Cayman search reports are purchasable but members remain out of reach. The only route is a <strong>Certificate of Incumbency issued by the registered agent</strong>, requested from the client, and it must be <strong>no more than 3 months old</strong> — it is a snapshot as at its date of issue.`,
+      `<strong>Offshore registries do not publish ownership by design.</strong> The register of members sits with the registered agent. In the BVI it is filed with the Registrar but on a private basis; in Cayman search reports are purchasable but members remain out of reach. The only route is a <strong>Certificate of Incumbency issued by the registered agent</strong>, requested from the client, and it should be <strong>no more than 3 months old</strong> — it is a snapshot as at its date of issue.`,
       `<strong>The Hong Kong NAR1 is an annual snapshot</strong> and may be up to twelve months old. If the client mentions a change, or the dates do not line up, ask for confirmation of the current position. Hong Kong's Significant Controllers Register, which companies must keep internally, is <strong>not public</strong> — request it from the client where needed.`,
       `<strong>Registries show legal shareholders, not beneficial owners.</strong> If a shareholder is itself a company, keep going up the chain. If a nominee or trustee appears, the registry has done all it can and we go back to the client.`,
     ],
@@ -593,20 +596,20 @@ export const content: SiteContent = {
     eyebrow: 'Reference',
     subtitle: 'Two tracks. They are not the same and must not be merged.',
     trackA: {
-      title: 'Track A',
-      sub: 'Suspected sanctions match',
+      title: 'Suspected sanctions match',
+      sub: '',
       intro: 'A match, or a possible match, even partial, on either portal.',
       steps: [
         'The transaction stops immediately.',
         'Written notification to the KYC Compliance Officer.',
         'The KYC Compliance Officer notifies the Sanlorenzo SCP Unit in writing at SCPUnit@sanlorenzoyacht.com.',
       ],
-      mandatory: 'This is not discretionary — the SCP requires it.',
+      mandatory: 'This is not discretionary, as required by the SCP.',
       note: `<strong>The broker does not inform the client and does not explain the reason for the delay.</strong> If pressed, the only acceptable answer is that the compliance review is still in progress. Never mention sanctions, lists, matches or names.`,
     },
     trackB: {
-      title: 'Track B',
-      sub: 'Complexity',
+      title: 'Complexity',
+      sub: '',
       intro:
         "Goes to the KYC Compliance Officer, who decides whether to proceed, request more, or involve the parent company's legal team in Italy.",
       triggersTitle: 'Triggers:',
@@ -948,14 +951,14 @@ In the case of a trust structure, this necessarily requires us to go beyond the 
     eyebrow: 'Tool',
     subtitle:
       'Select your role above to filter the RACI table and highlight your responsibilities throughout the site. Click a phase below for its detail.',
-    timelineTitle: 'The 15-day clock',
+    timelineTitle: 'The 20-day clock',
     timelineNote:
-      'Day 0 is the Contract Date (second signature). Days are calendar days. Click any phase to open its detail below.',
+      'Day 0 is the Contract Date (signature). Days are calendar days. Click any phase to open its detail below.',
     markers: {
       phase0: 'Before Day 0',
       phase1: 'Day 0 — signature',
-      phase2: 'Days 0–15 · reminders Day 5 / 10 / 13, escalation Day 15',
-      phase3: 'On completion',
+      phase2: 'Days 0–20 · Escalation at Day 15',
+      phase3: '',
       phase4: 'Until handover · re-screen if screening > 6 months old',
     },
     raciTitle: 'RACI — filtered by role',

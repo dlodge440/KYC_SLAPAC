@@ -23,17 +23,17 @@ export default function Screening() {
           {d.sourcesNote}
         </p>
       </div>
-      <div className="card">
+      {/* <div className="card">
         <div className="section-title">{d.evidenceTitle}</div>
         <p dangerouslySetInnerHTML={{ __html: d.evidenceHtml }} />
-      </div>
+      </div> */}
       <div className="card">
         <div className="section-title">{d.readingTitle}</div>
         <ol>
           {d.readingSteps.map((s, i) => (
             <li key={i} style={{ marginBottom: 8 }}>
               <label style={{ display: 'flex', gap: 8, alignItems: 'flex-start', cursor: 'pointer' }}>
-                <input type="checkbox" style={{ marginTop: 4 }} />
+                {/* <input type="checkbox" style={{ marginTop: 4 }} /> */}
                 {s}
               </label>
             </li>

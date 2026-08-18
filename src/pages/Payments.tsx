@@ -24,7 +24,7 @@ export default function Payments() {
       <Block b={d.broker} />
       <Block b={d.backoffice} />
       <Block b={d.finance} />
-      <Callout callout={d.cash} />
+      {/* <Callout callout={d.cash} /> */}
       <p className="muted" style={{ marginTop: 12 }}>
         {d.banks.html}
       </p>
