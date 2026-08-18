@@ -1,0 +1,40 @@
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print {
+  .topbar,
+  .sidebar,
+  .sidebar-scrim,
+  .wizard-footer,
+  .stepper,
+  #toTop,
+  .no-print {
+    display: none !important;
+  }
+  .main-wrap {
+    margin-left: 0;
+    padding-top: 0;
+    height: auto;
+    overflow: visible;
+  }
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 11.5pt;
+  }
+  .card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+  .accordion-body {
+    display: block !important;
+  }
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+  .callout {
+    border: 1px solid #999;
+  }
+}
