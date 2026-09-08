@@ -211,8 +211,7 @@ export const content: SiteContent = {
         cells: { broker: 'flags', backoffice: 'flags', compliance: 'decides' },
       },
       { task: 'Liaise with the Sanlorenzo SCP Unit', cells: { compliance: 'does', cso: 'informed' } },
-      { task: 'Sign off the completed file', cells: { compliance: 'does' } },
-      { task: 'Transmit the file to the shipyard in Italy', cells: { cso: 'does' } },
+      { task: 'Sign off the completed file', cells: { compliance: 'does', cso: 'informed' } },
     ],
     cellLabel: {
       does: 'Does',
