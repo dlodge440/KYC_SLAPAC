@@ -211,7 +211,7 @@ export const content: SiteContent = {
         cells: { broker: 'flags', backoffice: 'flags', compliance: 'decides' },
       },
       { task: 'Liaise with the Sanlorenzo SCP Unit', cells: { compliance: 'does', cso: 'informed' } },
-      { task: 'Sign off the completed file', cells: { cso: 'does' } },
+      { task: 'Sign off the completed file', cells: { compliance: 'does' } },
       { task: 'Transmit the file to the shipyard in Italy', cells: { cso: 'does' } },
     ],
     cellLabel: {
@@ -306,11 +306,11 @@ export const content: SiteContent = {
         timing: 'No later than Day 20',
         html: `
           <div class="role-block" data-role="backoffice">
-            <span class="badge role-backoffice">Back office</span> assembles all files and sends them digitally (link) to the Sales Administration Manager.
+            <span class="badge role-backoffice">Back office</span> assembles all files and sends them digitally (link) to the KYC Compliance Officer.
           </div>
           <br>
-          <div class="role-block" data-role="cso">
-            <span class="badge role-cso">CSO + Sales Admin Manager</span> — the CSO signs it off. No need to transmit the files to the shipyard in Italy. The signed documents shall go in the specifc KYC folder created in the privous steps by the Back Office.
+          <div class="role-block" data-role="compliance">
+            <span class="badge role-compliance">KYC Compliance Officer</span> — the KYC Compliance Officer signs it off. No need to transmit the files to the shipyard in Italy. The signed documents shall go in the specifc KYC folder created in the privous steps by the Back Office.
           </div>
 
           <p>The file is now <strong>closed, but not frozen.</strong></p>
