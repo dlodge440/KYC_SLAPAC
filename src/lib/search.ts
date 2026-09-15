@@ -92,7 +92,6 @@ export function buildSearchIndex(d: SiteContent): SearchIndexEntry[] {
     d.escalation.trackB.title + ' — ' + d.escalation.trackB.sub,
     d.escalation.trackB.intro + ' ' + d.escalation.trackB.triggers.join(' ') + ' ' + d.escalation.trackB.note,
   );
-  d.toolkit.templates.forEach((tp) => push('toolkit', tp.title, (tp.subject || '') + ' ' + tp.body));
   push(
     'records',
     d.records.title,

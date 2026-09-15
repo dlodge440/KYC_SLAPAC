@@ -1,5 +1,5 @@
 export const ROUTES_TOP = ['phases', 'raci'] as const;
-export const ROUTES_TOOLS = ['wizard', 'calculator', 'role-timeline', 'toolkit'] as const;
+export const ROUTES_TOOLS = ['wizard', 'calculator', 'role-timeline'] as const;
 export const ROUTES_REF = [
   'faq',
   'thresholds',
