@@ -32,7 +32,7 @@ export const content: SiteContent = {
     roles: {
       all: 'All roles',
       broker: 'Broker',
-      backoffice: 'Back office',
+      backoffice: 'Office Manager',
       finance: 'Finance',
       compliance: 'KYC Compliance Officer',
       cso: 'CSO + Assistant',
@@ -77,7 +77,7 @@ export const content: SiteContent = {
     body: [
       `Sanlorenzo, as a listed company, has adopted a <strong>Sanctions Compliance Program — the SCP</strong>, a document approved by its Board of Directors that sets out how customer due diligence, identity verification and sanctions screening must be carried out. Those commitments apply to every company in the Sanlorenzo group, Simpson Marine included. The SCP is referred to throughout these guidelines simply as "the SCP".`,
       `In plain terms: before we sell a boat, we must know who is really buying it, and we must be able to prove we checked.`,
-      `These guidelines translate the SCP into the steps our brokers, commercial back office and finance teams actually follow. They apply to <strong>all Simpson Marine selling entities across South-East Asia</strong>, without exception, and to <strong>all brands we sell new</strong>, not only Sanlorenzo and Bluegame.`,
+      `These guidelines translate the SCP into the steps our brokers, commercial office manager and finance teams actually follow. They apply to <strong>all Simpson Marine selling entities across South-East Asia</strong>, without exception, and to <strong>all brands we sell new</strong>, not only Sanlorenzo and Bluegame.`,
     ],
     callouts: [
       {
@@ -237,7 +237,7 @@ export const content: SiteContent = {
           <p>Triggered as soon as a negotiation moves towards an Order Contract.</p>
 
           <div class="role-block" data-role="broker">
-            <span class="badge role-broker">Broker</span> collects and passes to the back office:
+            <span class="badge role-broker">Broker</span> collects and passes to the office manager:
           </div>
           <ul>
             <li>full name, nationality, country of residence</li>
@@ -245,7 +245,7 @@ export const content: SiteContent = {
           </ul>
 
           <div class="role-block" data-role="backoffice">
-            <span class="badge role-backoffice">Back office</span> runs those names through the two portals, saves the result as a PDF or screenshot (see the page "Files Management") and opens the entry in the KYC register (shared Excel file, as of now).
+            <span class="badge role-backoffice">Office Manager</span> runs those names through the two portals, saves the result as a PDF or screenshot (see the page "Files Management") and opens the entry in the KYC register (shared Excel file, as of now).
           </div>
           <ul>
             <li><strong>Clear</strong> → proceed to signature.</li>
@@ -279,7 +279,7 @@ export const content: SiteContent = {
         timing: 'Days 0–20',
         html: `
           <div class="role-block" data-role="backoffice">
-            <span class="badge role-backoffice">Back office</span> tries the <strong>public registry first</strong> (see Registries by jurisdiction) and asks the Broker only for what the registry does not provide
+            <span class="badge role-backoffice">Office Manager</span> tries the <strong>public registry first</strong> (see Registries by jurisdiction) and asks the Broker only for what the registry does not provide
           </div>
           <br>
           <div class="role-block" data-role="broker">
@@ -287,7 +287,7 @@ export const content: SiteContent = {
           </div>
           <br>
           <div class="role-block" data-role="backoffice">
-            <span class="badge role-backoffice">Back office</span>:
+            <span class="badge role-backoffice">Office Manager</span>:
           </div>
           <ol>
             <li>checks that every document received is complete, legible and within validity</li>
@@ -305,11 +305,11 @@ export const content: SiteContent = {
         timing: 'No later than Day 20',
         html: `
           <div class="role-block" data-role="backoffice">
-            <span class="badge role-backoffice">Back office</span> assembles all files and sends them digitally (link) to the KYC Compliance Officer.
+            <span class="badge role-backoffice">Office Manager</span> assembles all files and sends them digitally (link) to the KYC Compliance Officer.
           </div>
           <br>
           <div class="role-block" data-role="compliance">
-            <span class="badge role-compliance">KYC Compliance Officer</span> — the KYC Compliance Officer signs it off. No need to transmit the files to the shipyard in Italy. The signed documents shall go in the specifc KYC folder created in the privous steps by the Back Office.
+            <span class="badge role-compliance">KYC Compliance Officer</span> — the KYC Compliance Officer signs it off. No need to transmit the files to the shipyard in Italy. The signed documents shall go in the specifc KYC folder created in the privous steps by the Office Manager.
           </div>
 
           <p>The file is now <strong>closed, but not frozen.</strong></p>
@@ -324,7 +324,7 @@ export const content: SiteContent = {
           <p>Three live controls run from sign-off to handover:</p>
 
           <div class="role-block" data-role="finance">
-            <span class="badge role-finance">Finance</span> checks every payment against the authorised payer (see Payments). Any mismatch is flagged to the broker and back office and triggers a new KYC check.
+            <span class="badge role-finance">Finance</span> checks every payment against the authorised payer (see Payments). Any mismatch is flagged to the broker and office manager and triggers a new KYC check.
           </div>
 
           <p><strong>Re-screening</strong> is mandatory if the last screening is more than <strong>6 months old</strong> at the time the shipping request goes to Italy. Documents are already on file — this is only a re-run of the names through the two portals.</p>
@@ -369,7 +369,7 @@ export const content: SiteContent = {
     title: 'Registry first, client second',
     eyebrow: 'Reference',
     subtitle:
-      'Public registries often hand us, in a single document and for a few dollars, everything we would otherwise have to extract from the client. The back office always tries the registry first.',
+      'Public registries often hand us, in a single document and for a few dollars, everything we would otherwise have to extract from the client. The office manager always tries the registry first.',
     columns: ['Jurisdiction', 'What are the public documents available?', 'Do they contain all the information we need?'],
     rows: [
       {
@@ -457,7 +457,7 @@ export const content: SiteContent = {
       ],
     },
     companyTitle: 'Private company',
-    companyStep1: `<strong>Step 1 — back office pulls the registry document.</strong> If it shows directors and shareholders with their stakes, that is the document. Nothing further is asked about the structure.`,
+    companyStep1: `<strong>Step 1 — office manager pulls the registry document.</strong> If it shows directors and shareholders with their stakes, that is the document. Nothing further is asked about the structure.`,
     companyStep2Title: 'Step 2 — request from the client only what is missing:',
     companyStep2: [
       {
@@ -545,14 +545,14 @@ export const content: SiteContent = {
       html: `At signature, and again before the first payment falls due, the broker tells the client to pay <strong>only from the account of the entity that signed the contract</strong> — or from the personal account of the individual who signed. Framed as what it is: a way to avoid delay and further questioning. It keeps down the number of documents we have to ask for, which is what clients mind most.`,
     },
     backoffice: {
-      title: 'What the back office does',
+      title: 'What the office manager does',
       role: 'backoffice',
-      html: `On closing the file, the back office records the <strong>authorised payer</strong> in the KYC register. At this stage the register is an Excel file shared on Box. It must be readable by finance, otherwise the control cannot physically be performed.`,
+      html: `On closing the file, the office manager records the <strong>authorised payer</strong> in the KYC register. At this stage the register is an Excel file shared on Box. It must be readable by finance, otherwise the control cannot physically be performed.`,
     },
     finance: {
       title: 'What finance does',
       role: 'finance',
-      html: `On every incoming payment, finance compares the remitter against the authorised payer for that contract.<ul><li><strong>Match</strong> → accept and record.</li><li><strong>No match</strong> → <strong>flag to the back office.</strong> The back office opens a KYC file on the third-party payer and, if anything is unclear, escalates.</li></ul>`,
+      html: `On every incoming payment, finance compares the remitter against the authorised payer for that contract.<ul><li><strong>Match</strong> → accept and record.</li><li><strong>No match</strong> → <strong>flag to the office manager.</strong> The office manager opens a KYC file on the third-party payer and, if anything is unclear, escalates.</li></ul>`,
     },
     cash: { type: 'danger', html: 'No cash. Any refund goes back only to the account the funds came from.' },
     banks: {
@@ -834,7 +834,7 @@ In the case of a trust structure, this necessarily requires us to go beyond the 
       },
     ],
     registryFirstNote:
-      'Registry first, client second: the back office always tries the public registry before asking the client.',
+      'Registry first, client second: the office manager always tries the public registry before asking the client.',
     docs: {
       passport: { name: 'Valid passport', proves: 'Identity', validity: '—' },
       proofResidence: {
@@ -846,7 +846,7 @@ In the case of a trust structure, this necessarily requires us to go beyond the 
       registryDoc: {
         name: 'Registry extract',
         proves: 'Current directors and shareholders with stakes, and that the company exists',
-        from: 'Registry (back office)',
+        from: 'Registry (office manager)',
         validity: 'Varies — see Registries by jurisdiction',
       },
       coi: {
